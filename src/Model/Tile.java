@@ -10,6 +10,7 @@
 
 package Model;
 import java.util.List;
+import java.util.Map;
 
 
 public class Tile {
@@ -21,15 +22,20 @@ public class Tile {
 	private TileFeature south;
 	private TileFeature west;
 	// Rotation
+	private Integer rotation;
 	// Image?
 	
 	// Features:
 	// - Road End
+	private Boolean roadObstruction;
 	// - City Connects
+	private Boolean cityConnects;
 	// - City Shield
+	private Boolean cityShield;
+	
 	
 	/**
-	 * Construct a new tile with properties
+	 * Construct a new tile with features
 	 *
 	 * @param north
 	 * @param east
@@ -38,11 +44,22 @@ public class Tile {
 	 */
 	public void Tile(TileFeature north, TileFeature east, TileFeature south, TileFeature west) {
 		this.north = north;
-		this.east = south;
+		this.east = east;
+		this.south = south;
+		this.west = west;
 	}
 	
 	public TileFeature getNorthFeature() {
-		return null;
+		return this.north;
+	}
+	public TileFeature getEastFeature() {
+		return this.east;
+	}
+	public TileFeature getSouthFeature() {
+		return this.south;
+	}
+	public TileFeature getWestFeature() {
+		return this.west;
 	}
 
 }
