@@ -1,16 +1,22 @@
 package Model;
-import java.awt.List;
+import java.util.List;
 
 
 public class Tile {
 	
 	// Private members to store tile features
 	// Edges
-	private TileEdge north;
-	private TileEdge east;
-	private TileEdge south;
-	private TileEdge west;
+	private TileFeature north;
+	private TileFeature east;
+	private TileFeature south;
+	private TileFeature west;
 	// Rotation
+	// Image?
+	
+	// Features:
+	// - Road End
+	// - City Connects
+	// - City Shield
 	
 	/**
 	 * Construct a new tile with properties
@@ -20,11 +26,12 @@ public class Tile {
 	 * @param south
 	 * @param west
 	 */
-	public void Tile(TileEdge north, TileEdge east, TileEdge south, TileEdge west) {
-		
+	public void Tile(TileFeature north, TileFeature east, TileFeature south, TileFeature west) {
+		this.north = north;
+		this.east = south;
 	}
 	
-	public TileEdge getNorthFeature() {
+	public TileFeature getNorthFeature() {
 		return null;
 	}
 }
