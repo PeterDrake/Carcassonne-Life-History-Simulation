@@ -1,9 +1,19 @@
+/***
+ * (c) 2015 Team Life History Simulation
+ * All rights reserved.
+ *
+ * Carcassonne Project - A Board Game
+ * Tile.java - The Carcassonne tile that makes up the board grid
+ * Each tile references its cardinal neighbors, as well as followers and players
+ */
+
+
 package Model;
 import java.util.List;
 
 
 public class Tile {
-	
+
 	// Private members to store tile features
 	// Edges
 	private TileFeature north;
@@ -20,7 +30,7 @@ public class Tile {
 	
 	/**
 	 * Construct a new tile with properties
-	 * 
+	 *
 	 * @param north
 	 * @param east
 	 * @param south
@@ -34,4 +44,5 @@ public class Tile {
 	public TileFeature getNorthFeature() {
 		return null;
 	}
+
 }
