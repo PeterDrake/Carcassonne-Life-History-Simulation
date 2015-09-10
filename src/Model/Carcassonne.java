@@ -8,11 +8,14 @@ Copyright © 2015. All rights reserved.
 */
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
-public class Carcassonne {
+public class Carcassonne extends JFrame implements MouseListener {
 
     /** The main window */
     JFrame mainWindow;
@@ -48,11 +51,18 @@ public class Carcassonne {
     }
 
     public Carcassonne() {
-        this.mainWindow = new JFrame("Carcassonne - The bitchinest game in all of christendom.");
-        this.mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.mainWindow.setSize(WIDTH, HEIGHT);
-        this.mainWindow.setVisible(true);
+        setTitle("Carcassonne - The bitchinest game in all of christendom.");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(WIDTH, HEIGHT);
+        setVisible(true);
+        //setUndecorated(true); // Get rid of that pesky top bar
+        setLayout(null);
+        setFocusable(true);
+        setBackground(Color.BLUE);
+        setLocationRelativeTo(null); // Open our window in the center of the display
+        addMouseListener(this); // We can receive mouse events like clicks
 
+        getContentPane().removeAll();   // Start from scratch
     }
 
     /**
@@ -77,6 +87,7 @@ public class Carcassonne {
         // Each frame cycle takes user input, processes game data, and renders the frame, then releases
         frame++;
         parseInput();
+        updateMechanics();
         draw();
     }
 
@@ -86,8 +97,16 @@ public class Carcassonne {
     private void parseInput(){
         // Takes the user's input and directs it towards the appropriate data models
 
+    }
+
+    /**
+     * Performs updates to game mechanics and physics, if necessary, in preparation for rendering
+     */
+    private void updateMechanics(){
+        // Perform any mathematics and physics simulations in preparation for draw()
 
     }
+
 
     /**
      * The main rendering loop. This method draws to the main container inside the JFrame which describes the game window.
@@ -101,5 +120,28 @@ public class Carcassonne {
     }
 
 
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
 
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
 }
