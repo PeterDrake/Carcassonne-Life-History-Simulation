@@ -1,8 +1,7 @@
 package Model;
 //constructs the Carcassonne deck
 public class Deck {
-	public class Carcassonne {
-		private Tile[] deck=new Tile[1000];
+	private Tile[] deck  =new Tile[1000];
 	    // Tiles may be placed on the table
 	public void deckSetup(){
 	Tile crossCity=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.CITY, TileFeature.GRASS, TileFeature.CITY}, null, false, true, false );
@@ -54,5 +53,5 @@ public class Deck {
 	Tile cloister=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.GRASS, TileFeature.GRASS, TileFeature.GRASS}, null, false, false, false );
 	//4 cloister in game
 }
-	}
+
 }
