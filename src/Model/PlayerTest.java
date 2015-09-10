@@ -13,7 +13,11 @@ public class PlayerTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		Player testPlayer = new Player("Anonymous", 1);
+		assertEquals(testPlayer.getScore(), 0);
+		assertEquals(testPlayer.getFollowers(), 7);
+		assertTrue(testPlayer.getName().equals("Anonymous"));
+		assertEquals(testPlayer.getID(), 1);
 	}
 
 }
