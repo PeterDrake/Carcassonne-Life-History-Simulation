@@ -113,6 +113,7 @@ public class Carcassonne extends JFrame implements MouseListener {
      */
     private void draw(){
         //  Draw the main game grid and user interface elements here
+        getContentPane().repaint();
 
         // TODO: Draw the user interface components like scores
         // TODO: Draw the gameboard and players
@@ -122,26 +123,26 @@ public class Carcassonne extends JFrame implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
-
+        System.out.println("Mouse exited");
     }
 
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
-
+        System.out.println("Mouse released");
     }
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-
+        System.out.println("Mouse pressed");
     }
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-
+        System.out.println("Mouse clicked");
     }
 
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
-
+        System.out.println("Mouse entered");
     }
 }
