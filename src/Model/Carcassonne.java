@@ -1,58 +1,143 @@
 package Model;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Carcassonne {
-	private Tile[] deck=new Tile[1000];
-    // Tiles may be placed on the table
-public void deckSetup(){
-Tile crossCity=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.CITY, TileFeature.GRASS, TileFeature.CITY}, null, false, true, false );
-//1 crossCity in game
-Tile crossCityShield=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.CITY, TileFeature.GRASS, TileFeature.CITY}, null, false, true, true );
-//2 crossCityShield in game
-Tile city3Side=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.GRASS, TileFeature.CITY}, null, false, true, false );
-//3 city3Side in game
-Tile city3SideShield=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.GRASS, TileFeature.CITY}, null, false, true, true );
-//1 city3SideShield in game
-Tile city3SideRoad=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.ROAD, TileFeature.CITY}, null, true, true, false );
-//1 city3SideRoad in game
-Tile city3SideRoadShield=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.ROAD, TileFeature.CITY}, null, true, true, true );
-//2 city3SideRoad in game
-Tile cityAll=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.CITY, TileFeature.CITY}, null, false, true, true );
-//1 cityAll in game
-Tile cityCornersUnconnected=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.GRASS, TileFeature.GRASS}, null, false, false, false );
-//2 cityCornersUnconnected in game
-Tile cityCornersConnected=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.GRASS, TileFeature.GRASS}, null, false, true, false );
-//3 cityCornersConnected in game
-Tile cityCornersConnectedShield=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.GRASS, TileFeature.GRASS}, null, false, true, true );
-//2 cityCornersConnectedShield in game
-Tile cityCornersConnectedRoad=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.ROAD, TileFeature.ROAD}, null, false, true, false );
-//3 cityCornersConnectedRoad in game
-Tile cityCornersConnectedRoadShield=new Tile(new Integer[]{TileFeature.CITY, TileFeature.CITY, TileFeature.ROAD, TileFeature.ROAD}, null, false, true, true );
-//2 cityCornersConnectedRoadShield in game
-Tile cityEdge=new Tile(new Integer[]{TileFeature.CITY, TileFeature.GRASS, TileFeature.GRASS, TileFeature.GRASS}, null, false, false, false );
-//5 cityEdge in game
-Tile cityEdgeRoad=new Tile(new Integer[]{TileFeature.CITY, TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD}, null, false, false, false );
-//4 cityEdgeRoad in game
-Tile cityEdgeRoadFork=new Tile(new Integer[]{TileFeature.CITY, TileFeature.ROAD, TileFeature.ROAD, TileFeature.ROAD}, null, true, false, false );
-//3 cityEdgeRoadFork in game
-Tile cityEdgeRoadBendRight=new Tile(new Integer[]{TileFeature.CITY, TileFeature.ROAD, TileFeature.ROAD, TileFeature.GRASS}, null, false, false, false );
-//3 cityEdgeRoadBendRight in game
-Tile cityEdgeRoadBendLeft=new Tile(new Integer[]{TileFeature.CITY, TileFeature.GRASS, TileFeature.ROAD, TileFeature.ROAD}, null, false, false, false );
-//3 cityEdgeRoadBendLeft in game
-Tile city2Edge=new Tile(new Integer[]{TileFeature.CITY, TileFeature.GRASS, TileFeature.CITY, TileFeature.GRASS}, null, false, false, false );
-//3 city2Edge in game
-Tile roadStraight=new Tile(new Integer[]{TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD, TileFeature.GRASS}, null, false, false, false );
-//8 roadStraight in game
-Tile roadBend=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.GRASS, TileFeature.ROAD, TileFeature.ROAD}, null, false, false, false );
-//9 roadBend in game
-Tile roadFork=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.ROAD, TileFeature.ROAD, TileFeature.ROAD}, null, true, false, false );
-//4 roadFork in game
-Tile roadAll=new Tile(new Integer[]{TileFeature.ROAD, TileFeature.ROAD, TileFeature.ROAD, TileFeature.ROAD}, null, true, false, false );
-//1 roadAll in game
-Tile cloisterRoad=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.GRASS, TileFeature.ROAD, TileFeature.GRASS}, null, true, false, false );
-//2 cloisterRoad in game
-Tile cloister=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.GRASS, TileFeature.GRASS, TileFeature.GRASS}, null, false, false, false );
-//4 cloister in game
+
+public class Carcassonne extends JFrame implements MouseListener {
+
+    /** The main window */
+    JFrame mainWindow;
+
+    /** The main game timer loop */
+    Timer runLoop;
+
+    /** The width of the window */
+    final int WIDTH = 1024;
+
+    /** The height of the window */
+    final int HEIGHT = 768;
+
+    /** The current frame count. Resets at 2^64 */
+    private long frame = 0;
+
+    /** Terminates the current runloop timer, deallocates resources, and safely exits the program */
+    public void abort(){
+        // TODO: Add resource deallocation as needed
+        runLoop.stop();
+        mainWindow = null;
+        java.lang.System.exit(0);
+    }
+
+    /** Terminates the current runloop timer, deallocates resources, and safely exits the program */
+    public void exit(){
+        abort();
+    }
+
+    public static void main(String[] args) {
+        Carcassonne main = new Carcassonne();
+        main.run();
+    }
+
+    public Carcassonne() {
+        setTitle("Carcassonne - The bitchinest game in all of christendom.");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(WIDTH, HEIGHT);
+        setVisible(true);
+        //setUndecorated(true); // Get rid of that pesky top bar
+        setLayout(null);
+        setFocusable(true);
+        setBackground(Color.BLUE);
+        setLocationRelativeTo(null); // Open our window in the center of the display
+        addMouseListener(this); // We can receive mouse events like clicks
+
+        getContentPane().removeAll();   // Start from scratch
+    }
+
+    /**
+     * Initializes the main game runloop, which is based on a JavaX Swing Timer running at ~50 fps (20 ms delay).
+     */
+    private void run(){
+        runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                frameCycle();
+            }
+        });
+        runLoop.setRepeats(true);
+        runLoop.start();
+
+    }
+
+    /**
+     * A single frame cycle in the runtime loop. This is a dispatch method which evokes the input and render loops.
+     */
+    private void frameCycle(){
+        // Each frame cycle takes user input, processes game data, and renders the frame, then releases
+        frame++;
+        parseInput();
+        updateMechanics();
+        draw();
+    }
+
+    /**
+     * Accepts and parses user's input. Directs input to appropriate containers in the view hierarchy.
+     */
+    private void parseInput(){
+        // Takes the user's input and directs it towards the appropriate data models
+
+    }
+
+    /**
+     * Performs updates to game mechanics and physics, if necessary, in preparation for rendering
+     */
+    private void updateMechanics(){
+        // Perform any mathematics and physics simulations in preparation for draw()
+
+    }
+
+
+    /**
+     * The main rendering loop. This method draws to the main container inside the JFrame which describes the game window.
+     */
+    private void draw(){
+        //  Draw the main game grid and user interface elements here
+
+        // TODO: Draw the user interface components like scores
+        // TODO: Draw the gameboard and players
+
+    }
+
+
+    @Override
+    public void mouseExited(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent mouseEvent) {
+
+    }
+>>>>>>> 4c4779cc73562cbeecc1a5332cf7ca8b1f4076a2
 }
 
 }
