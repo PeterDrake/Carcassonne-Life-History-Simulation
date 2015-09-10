@@ -26,6 +26,7 @@ public class TileTest {
     public void testRotateClockwise() throws Exception {
         Tile tile = new Tile();
 
+
         assertEquals(0, (long)tile.getRotation());
         tile.rotateClockwise();
         assertEquals(90, (long)tile.getRotation());
@@ -36,7 +37,7 @@ public class TileTest {
     public void testRotateCounterclockwise() throws Exception {
         Tile tile = new Tile();
 
-        assertEquals(0, (long) tile.getRotation());
+        assertEquals(0, (long)tile.getRotation());
         tile.rotateCounterclockwise();
         assertEquals(-90, (long) tile.getRotation());
     }
