@@ -1,8 +1,6 @@
 package Model;
 //constructs the Carcassonne deck
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.*
 ;
 public class Deck {
