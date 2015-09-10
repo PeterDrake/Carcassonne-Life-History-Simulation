@@ -55,6 +55,7 @@ public class TileTest {
         Tile northTile = baseTile();
 
         centerTile.setNorth(northTile);
+        northTile.setSouth(centerTile);
         assertEquals(northTile, centerTile.getNorth());
         assertEquals(centerTile, northTile.getSouth());
     }
