@@ -6,9 +6,7 @@ import java.awt.*;
 import java.util.*
 ;
 public class Deck {
-	public class Carcassonne {
 		private ArrayList<Tile> tiles=new ArrayList<Tile>();
-		//private Tile[] deck=new Tile[100];
 		int i=0;
 	    // Tiles may be placed on the table
 	public void deckSetup(){
@@ -124,5 +122,5 @@ tiles.add(crossCity);
 	}
 	
 }
-	}
+
 }
