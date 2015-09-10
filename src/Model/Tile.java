@@ -85,7 +85,6 @@ public class Tile {
 		this.rotation -= 90;
 	}
 
-
 	public Tile getNorth() {
 		return north;
 	}

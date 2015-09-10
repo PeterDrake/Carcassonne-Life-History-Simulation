@@ -13,10 +13,11 @@ import static org.junit.Assert.*;
 public class TileTest {
 
 	private Tile origin;
+	private Image baseImage = new ImageIcon("src/img/startingtile.png").getImage();
 
 	private Tile baseTile() {
-		return new Tile(TileFeature.city, TileFeature.road, TileFeature.grass, TileFeature.road,
-				new ImageIcon("src/img/startingtile.png").getImage(), false, false, false);
+		return new Tile(TileFeature.CITY, TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD,
+				baseImage, false, false, false);
 	}
 	
 	@Before
@@ -25,8 +26,16 @@ public class TileTest {
 	}
 
 	@Test
-	public void test() {
-		assertEquals(origin.getNorthFeature(), TileFeature.city);
+	public void testFeatures() throws Exception {
+		assertEquals(origin.getNorthFeature(), TileFeature.CITY);
+		assertEquals(origin.getEastFeature(), TileFeature.ROAD);
+		assertEquals(origin.getSouthFeature(), TileFeature.GRASS);
+		assertEquals(origin.getWestFeature(), TileFeature.ROAD);
+	}
+	
+	@Test
+	public void testImage() throws Exception {
+		assertEquals(origin.getImage(), baseImage);
 	}
 
 
