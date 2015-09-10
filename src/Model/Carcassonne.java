@@ -13,6 +13,9 @@ public class Carcassonne extends JFrame implements MouseListener {
     /** The main window */
     JFrame mainWindow;
 
+    /** The main game model */
+    CarcassonneModel gameModel;
+
     /** The main game timer loop */
     Timer runLoop;
 
@@ -30,6 +33,8 @@ public class Carcassonne extends JFrame implements MouseListener {
         // TODO: Add resource deallocation as needed
         runLoop.stop();
         mainWindow = null;
+        gameModel = null;
+        getContentPane().removeAll();
         java.lang.System.exit(0);
     }
 
@@ -62,6 +67,9 @@ public class Carcassonne extends JFrame implements MouseListener {
      * Initializes the main game runloop, which is based on a JavaX Swing Timer running at ~50 fps (20 ms delay).
      */
     private void run(){
+        gameModel = new CarcassonneModel();
+        add(gameModel);
+
         runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
