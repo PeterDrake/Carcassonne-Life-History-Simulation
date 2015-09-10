@@ -9,6 +9,8 @@
 
 
 package Model;
+import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +19,14 @@ public class Tile {
 
 	// Private members to store tile features
 	// Edges
-	private TileFeature north;
-	private TileFeature east;
-	private TileFeature south;
-	private TileFeature west;
+	private Integer north;
+	private Integer east;
+	private Integer south;
+	private Integer west;
 	// Rotation
 	private Integer rotation;
-	// Image?
+	// Image, 256x256 PNG
+	private Image image;
 	
 	// Features:
 	// - Road End
@@ -32,6 +35,12 @@ public class Tile {
 	private Boolean cityConnects;
 	// - City Shield
 	private Boolean cityShield;
+	
+	// Neighbors, max 4
+	private Tile northNeighbor;
+	private Tile eastNeighbor;
+	private Tile southNeighbor;
+	private Tile westNeighbor;
 	
 	
 	/**
@@ -42,24 +51,50 @@ public class Tile {
 	 * @param south
 	 * @param west
 	 */
-	public void Tile(TileFeature north, TileFeature east, TileFeature south, TileFeature west) {
+	public Tile(
+			Integer north, 
+			Integer east, 
+			Integer south, 
+			Integer west,
+			Image image,
+			Boolean roadObstruction,
+			Boolean cityConnects,
+			Boolean cityShield
+			) {
 		this.north = north;
 		this.east = east;
 		this.south = south;
 		this.west = west;
 	}
 	
-	public TileFeature getNorthFeature() {
+	public Integer getNorthFeature() {
 		return this.north;
 	}
-	public TileFeature getEastFeature() {
+	public Integer getEastFeature() {
 		return this.east;
 	}
-	public TileFeature getSouthFeature() {
+	public Integer getSouthFeature() {
 		return this.south;
 	}
-	public TileFeature getWestFeature() {
+	public Integer getWestFeature() {
 		return this.west;
 	}
+
+	
+	// connect to neighbors
+	public void connectNorth(Tile northNeighbor) {
+		this.northNeighbor = northNeighbor;
+	}
+    public void connectEast(Tile eastNeighbor) {
+        this.eastNeighbor = eastNeighbor;
+    }
+    public void connectSouth(Tile southNeighbor) {
+        this.southNeighbor = southNeighbor;
+    }
+    public void connectWest(Tile westNeighbor) {
+        this.westNeighbor = westNeighbor;
+    }
+
+	
 
 }
