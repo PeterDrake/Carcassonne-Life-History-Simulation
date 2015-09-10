@@ -16,10 +16,7 @@ public class Tile {
 
 	// Private members to store tile features
 	// Edges
-	private Integer northFeature;
-	private Integer eastFeature;
-	private Integer southFeature;
-	private Integer westFeature;
+	private Integer[] edgeFeatures;
 	/**Rotation in degrees*/
 	private Integer rotation;
 	// Image, 256x256 PNG
@@ -51,38 +48,41 @@ public class Tile {
 
 	
 	public Tile(
-			Integer northFeature, 
-			Integer eastFeature, 
-			Integer southFeature, 
-			Integer westFeature,
+			Integer[] edgeFeatures, 
 			Image image,
 			Boolean roadObstruction,
 			Boolean cityConnects,
 			Boolean cityShield
 			) {
-		this.northFeature = northFeature;
-		this.eastFeature = eastFeature;
-		this.southFeature = southFeature;
-		this.westFeature = westFeature;
+		this.edgeFeatures = new Integer[4];
+		System.arraycopy( edgeFeatures, 0, this.edgeFeatures, 0, edgeFeatures.length );;
 		this.image = image;
 		this.roadObstruction = roadObstruction;
 		this.cityConnects = cityConnects;
 		this.cityShield = cityShield;
-		this.rotation = 0;
+		this.rotation = TileFeature.NORTH;
 	}
 	
 	/**
 	 * Rotates the tile in the clockwise (right) direction.
 	 */
 	public void rotateClockwise(){
-		this.rotation += 90;
+		if (this.rotation == 3) {
+			this.rotation = 0;
+		} else {
+			this.rotation += 1;
+		}
 	}
 
 	/**
 	 * Rotates the tile in the counterclockwise (left) direction.
 	 */
 	public void rotateCounterclockwise(){
-		this.rotation -= 90;
+		if (this.rotation == 0) {
+			this.rotation = 3;
+		} else {
+			this.rotation -= 1;
+		}
 	}
 
 	public Tile getNorth() {
@@ -122,16 +122,16 @@ public class Tile {
 	 * @return
 	 */
 	public Integer getNorthFeature() {
-		return this.northFeature;
+		return this.edgeFeatures[TileFeature.NORTH + this.rotation];
 	}
 	public Integer getEastFeature() {
-		return this.eastFeature;
+		return this.edgeFeatures[TileFeature.EAST + this.rotation];
 	}
 	public Integer getSouthFeature() {
-		return this.southFeature;
+		return this.edgeFeatures[TileFeature.SOUTH + this.rotation];
 	}
 	public Integer getWestFeature() {
-		return this.westFeature;
+		return this.edgeFeatures[TileFeature.WEST + this.rotation];
 	}
 
 	public Image getImage() {

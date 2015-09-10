@@ -16,7 +16,7 @@ public class TileTest {
 	private Image baseImage = new ImageIcon("src/img/startingtile.png").getImage();
 
 	private Tile baseTile() {
-		return new Tile(TileFeature.CITY, TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD,
+		return new Tile(new Integer[]{TileFeature.CITY, TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD},
 				baseImage, false, false, false);
 	}
 	
@@ -43,9 +43,13 @@ public class TileTest {
     public void testRotateClockwise() throws Exception {
         Tile tile = baseTile();
 
-        assertEquals(0, (long)tile.getRotation());
+        assertEquals(TileFeature.NORTH, tile.getRotation());
         tile.rotateClockwise();
-        assertEquals(90, (long)tile.getRotation());
+        assertEquals(TileFeature.EAST, tile.getRotation());
+        tile.rotateClockwise();
+        tile.rotateClockwise();
+        tile.rotateClockwise();
+        assertEquals(TileFeature.NORTH, tile.getRotation());
 
     }
 
@@ -53,11 +57,22 @@ public class TileTest {
     public void testRotateCounterclockwise() throws Exception {
         Tile tile = baseTile();
 
-        assertEquals(0, (long)tile.getRotation());
+        assertEquals(TileFeature.NORTH, tile.getRotation());
         tile.rotateCounterclockwise();
-        assertEquals(-90, (long) tile.getRotation());
+        assertEquals(TileFeature.WEST, tile.getRotation());
     }
-
+    
+    @Test
+    public void testGetFeatureRotated() throws Exception {
+		assertEquals(origin.getNorthFeature(), TileFeature.CITY);
+		origin.rotateClockwise();
+		assertEquals(origin.getNorthFeature(), TileFeature.ROAD);
+		origin.rotateClockwise();
+		assertEquals(origin.getNorthFeature(), TileFeature.GRASS);
+		origin.rotateClockwise();
+		assertEquals(origin.getNorthFeature(), TileFeature.ROAD);
+    }
+    
     @Test
     public void testNeighbor() throws Exception {
         Tile centerTile = baseTile();
