@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
 public class TileTest {
 
 	private Tile origin;
-	private Image baseImage = new ImageIcon("src/img/startingtile.png").getImage();
+	protected static Image baseImage = new ImageIcon("src/img/startingtile.png").getImage();
 
-	private Tile baseTile() {
+	protected static Tile baseTile() {
 		return new Tile(new Integer[]{TileFeature.CITY, TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD},
 				baseImage, false, false, false);
 	}
