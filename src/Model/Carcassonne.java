@@ -1,12 +1,5 @@
 package Model;
 
-/*Carcassonne-Life-History-Simulation, 2015
-
-Created Sep 08, 2015 by Team Life History Simulation
-
-Copyright © 2015. All rights reserved.
-*/
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -145,4 +138,7 @@ public class Carcassonne extends JFrame implements MouseListener {
     public void mouseEntered(MouseEvent mouseEvent) {
         System.out.println("Mouse entered");
     }
+>>>>>>> 4c4779cc73562cbeecc1a5332cf7ca8b1f4076a2
+}
+
 }
