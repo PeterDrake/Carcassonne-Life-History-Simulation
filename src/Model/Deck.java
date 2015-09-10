@@ -7,7 +7,7 @@ public class Deck {
 		private ArrayList<Tile> tiles=new ArrayList<Tile>();
 		int i=0;
 	    // Tiles may be placed on the table
-	public void deckSetup(){
+	public Deck(){
 	Tile crossCity=new Tile(new Integer[]{TileFeature.GRASS, TileFeature.CITY, TileFeature.GRASS, TileFeature.CITY}, null, false, true, false );
 	//1 crossCity in game
 tiles.add(crossCity);
@@ -119,6 +119,17 @@ tiles.add(crossCity);
 		tiles.add(cloister);
 	}
 	
+
+	}
+	//Returns amount of tiles in the list
+public int count(){
+	return tiles.size();
+}
+
+//removes the tile at the bottom of the pile, moving the remainder down. Probably.
+public Tile pullTile(){
+	Tile tempTile=tiles.remove(0);
+	return tempTile;
 }
 
 }
