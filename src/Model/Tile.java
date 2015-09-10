@@ -28,13 +28,12 @@ public class Tile {
 
 	/** The west neighbor of the tile */
 	private Tile west;
-	
+
 	////// END NEIGHBORS //////
 
 
 	/**Rotation in degrees*/
 	private Integer rotation;
-	// Image?
 
 	// Features:
 	// - Road End
@@ -43,6 +42,20 @@ public class Tile {
 	private Boolean cityConnects;
 	// - City Shield
 	private Boolean cityShield;
+
+	/**
+	 * Rotates the tile in the clockwise (right) direction.
+	 */
+	public void rotateClockwise(){
+		this.rotation += 90;
+	}
+
+	/**
+	 * Rotates the tile in the counterclockwise (left) direction.
+	 */
+	public void rotateCounterclockwise(){
+		this.rotation -= 90;
+	}
 
 
 	public Tile getNorth() {
@@ -75,5 +88,14 @@ public class Tile {
 
 	public void setWest(Tile west) {
 		this.west = west;
+	}
+
+
+	/**
+	 * Returns the rotation in degrees.
+	 * @return the rotation, Integer, in degrees
+	 */
+	public Integer getRotation() {
+		return rotation;
 	}
 }
