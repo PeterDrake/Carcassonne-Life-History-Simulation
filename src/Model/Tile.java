@@ -9,22 +9,38 @@
 
 
 package Model;
-import java.util.List;
-import java.util.Map;
+import java.awt.Image;
 
 
 public class Tile {
 
 	// Private members to store tile features
 	// Edges
-	private TileFeature north;
-	private TileFeature east;
-	private TileFeature south;
-	private TileFeature west;
-	// Rotation
+	private Integer northFeature;
+	private Integer eastFeature;
+	private Integer southFeature;
+	private Integer westFeature;
+	/**Rotation in degrees*/
 	private Integer rotation;
-	// Image?
+	// Image, 256x256 PNG
+	private Image image;
 	
+	////// Neighbors /////////
+
+	/** The north neighbor of the tile */
+	private Tile north;
+
+	/** The south neighbor of the tile */
+	private Tile south;
+
+	/** The east neighbor of the tile */
+	private Tile east;
+
+	/** The west neighbor of the tile */
+	private Tile west;
+
+	////// END NEIGHBORS //////
+
 	// Features:
 	// - Road End
 	private Boolean roadObstruction;
@@ -32,34 +48,102 @@ public class Tile {
 	private Boolean cityConnects;
 	// - City Shield
 	private Boolean cityShield;
+
 	
+	public Tile(
+			Integer northFeature, 
+			Integer eastFeature, 
+			Integer southFeature, 
+			Integer westFeature,
+			Image image,
+			Boolean roadObstruction,
+			Boolean cityConnects,
+			Boolean cityShield
+			) {
+		this.northFeature = northFeature;
+		this.eastFeature = eastFeature;
+		this.southFeature = southFeature;
+		this.westFeature = westFeature;
+		this.image = image;
+		this.roadObstruction = roadObstruction;
+		this.cityConnects = cityConnects;
+		this.cityShield = cityShield;
+		this.rotation = 0;
+	}
 	
 	/**
-	 * Construct a new tile with features
-	 *
-	 * @param north
-	 * @param east
-	 * @param south
-	 * @param west
+	 * Rotates the tile in the clockwise (right) direction.
 	 */
-	public void Tile(TileFeature north, TileFeature east, TileFeature south, TileFeature west) {
-		this.north = north;
-		this.east = east;
-		this.south = south;
-		this.west = west;
-	}
-	
-	public TileFeature getNorthFeature() {
-		return this.north;
-	}
-	public TileFeature getEastFeature() {
-		return this.east;
-	}
-	public TileFeature getSouthFeature() {
-		return this.south;
-	}
-	public TileFeature getWestFeature() {
-		return this.west;
+	public void rotateClockwise(){
+		this.rotation += 90;
 	}
 
+	/**
+	 * Rotates the tile in the counterclockwise (left) direction.
+	 */
+	public void rotateCounterclockwise(){
+		this.rotation -= 90;
+	}
+
+	public Tile getNorth() {
+		return north;
+	}
+
+	public void setNorth(Tile north) {
+		this.north = north;
+	}
+
+	public Tile getSouth() {
+		return south;
+	}
+
+	public void setSouth(Tile south) {
+		this.south = south;
+	}
+	
+	public Tile getEast() {
+		return east;
+	}
+
+	public void setEast(Tile east) {
+		this.east = east;
+	}
+
+	public Tile getWest() {
+		return west;
+	}
+
+	public void setWest(Tile west) {
+		this.west = west;
+	}
+
+	/**
+	 * Get edge features.
+	 * @return
+	 */
+	public Integer getNorthFeature() {
+		return this.northFeature;
+	}
+	public Integer getEastFeature() {
+		return this.eastFeature;
+	}
+	public Integer getSouthFeature() {
+		return this.southFeature;
+	}
+	public Integer getWestFeature() {
+		return this.westFeature;
+	}
+
+	public Image getImage() {
+		return this.image;
+	}
+	
+
+	/**
+	 * Returns the rotation in degrees.
+	 * @return the rotation, Integer, in degrees
+	 */
+	public Integer getRotation() {
+		return rotation;
+	}
 }
