@@ -20,10 +20,10 @@ public class Carcassonne extends JFrame implements MouseListener {
     Timer runLoop;
 
     /** The width of the window */
-    final int WIDTH = 1024;
+    final static int WIDTH = 1024;
 
     /** The height of the window */
-    final int HEIGHT = 768;
+    final static int HEIGHT = 768;
 
     /** The current frame count. Resets at 2^64 */
     private long frame = 0;
@@ -117,6 +117,7 @@ public class Carcassonne extends JFrame implements MouseListener {
     private void draw(){
         //  Draw the main game grid and user interface elements here
         getContentPane().repaint();
+        gameModel.repaint();
 
         // TODO: Draw the user interface components like scores
         // TODO: Draw the gameboard and players
