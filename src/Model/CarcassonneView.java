@@ -29,7 +29,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 			false
 		);
 		setBackground(java.awt.Color.BLACK);
-        setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT);
+        setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT-200);
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
         setLayout(null);

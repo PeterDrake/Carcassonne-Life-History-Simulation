@@ -1,6 +1,7 @@
 package Model;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +15,10 @@ public class Carcassonne extends JFrame implements MouseListener {
     JFrame mainWindow;
 
     /** The main game model */
-    CarcassonneView gameModel;
+    CarcassonneView gameView;
+    
+    /** Player Panel */
+    PlayerView playerView; 
 
     /** The main game timer loop */
     Timer runLoop;
@@ -33,7 +37,8 @@ public class Carcassonne extends JFrame implements MouseListener {
         // TODO: Add resource deallocation as needed
         runLoop.stop();
         mainWindow = null;
-        gameModel = null;
+        gameView = null;
+        playerView = null;
         getContentPane().removeAll();
         java.lang.System.exit(0);
     }
@@ -54,7 +59,7 @@ public class Carcassonne extends JFrame implements MouseListener {
         setSize(WIDTH, HEIGHT);
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
-        setLayout(null);
+        getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
         setFocusable(true);
         setBackground(Color.BLUE);
         setLocationRelativeTo(null); // Open our window in the center of the display
@@ -67,8 +72,11 @@ public class Carcassonne extends JFrame implements MouseListener {
      * Initializes the main game runloop, which is based on a JavaX Swing Timer running at ~50 fps (20 ms delay).
      */
     private void run(){
-        gameModel = new CarcassonneView();
-        add(gameModel);
+        gameView = new CarcassonneView();
+        add(gameView);
+//        playerView = new PlayerView("test"); 
+//        add(playerView); 
+ 
 
         runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override
@@ -115,7 +123,7 @@ public class Carcassonne extends JFrame implements MouseListener {
     private void draw(){
         //  Draw the main game grid and user interface elements here
         getContentPane().repaint();
-        gameModel.repaint();
+        gameView.repaint();
 
         // TODO: Draw the user interface components like scores
         // TODO: Draw the gameboard and players
