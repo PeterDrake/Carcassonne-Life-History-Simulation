@@ -22,7 +22,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 		this.deck = new Deck();
 		this.startingTile = new Tile(
-			new Integer[] { TileFeature.CITY, TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD },
+			new Integer[] { TileFeatureOld.CITY, TileFeatureOld.ROAD, TileFeatureOld.GRASS, TileFeatureOld.ROAD },
 			new ImageIcon("src/img/startingtile.png").getImage(),
 			false,
 			false,
