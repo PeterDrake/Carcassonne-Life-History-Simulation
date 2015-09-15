@@ -68,6 +68,7 @@ public class Carcassonne extends JFrame implements MouseListener {
      */
     private void run(){
         System.out.println("End game detection is a go!\nFollower placement is up and running.\n Thanks!");
+
         gameModel = new CarcassonneModel();
         add(gameModel);
 
