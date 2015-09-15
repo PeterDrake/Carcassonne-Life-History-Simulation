@@ -29,7 +29,7 @@ public class TileTest {
 	@Test
 	public void testFeatures() throws Exception {
 		assertEquals(
-			origin.getEdge(Directions.NORTH),
+			origin.getEdge(Direction.NORTH),
 			new ArrayList<TileFeature>() {{
 				add(TileFeature.CITY);
 				add(TileFeature.CITY);
