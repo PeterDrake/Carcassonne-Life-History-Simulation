@@ -67,6 +67,7 @@ public class Carcassonne extends JFrame implements MouseListener {
      * Initializes the main game runloop, which is based on a JavaX Swing Timer running at ~50 fps (20 ms delay).
      */
     private void run(){
+        System.out.println("End game detection is a go!\nFollower placement is up and running.\n Thanks!");
         gameModel = new CarcassonneModel();
         add(gameModel);
 
