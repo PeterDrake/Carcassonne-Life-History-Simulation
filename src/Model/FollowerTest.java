@@ -21,9 +21,9 @@ public class FollowerTest {
 	public void testPlaceOnTile() {
 		assertEquals(null, follower.getTile());
 		assertEquals(null, follower.getPosition());
-		follower.placeOnTile(tile, TileFeature.CITY);
+		follower.placeOnTile(tile, TileFeatureOld.CITY);
 		assertEquals(tile, follower.getTile());
-		assertEquals(TileFeature.CITY, follower.getPosition());
+		assertEquals(TileFeatureOld.CITY, follower.getPosition());
 	}
 
 }

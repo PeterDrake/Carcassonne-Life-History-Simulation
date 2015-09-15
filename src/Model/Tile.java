@@ -10,6 +10,8 @@
 
 package Model;
 import java.awt.Image;
+import java.awt.List;
+import java.util.ArrayList;
 
 /**
  * Represents an individual game Tile
@@ -42,6 +44,16 @@ public class Tile {
 	////// END NEIGHBORS //////
 
 	/** Features: */
+	/** List of connected road edges */
+	private ArrayList<ArrayList<Directions>> roads;
+	/** List of connected city edges */
+	private ArrayList<ArrayList<Directions>> cities;
+	/** List of connected farm edges */
+	private ArrayList<ArrayList<Directions>> farms;
+	/** Whether Tile has a cloister */
+	private boolean cloister;
+	
+	
 	/** - Road End */
 	private Boolean roadObstruction;
 	/** - City Connects */
@@ -70,7 +82,24 @@ public class Tile {
 		this.roadObstruction = roadObstruction;
 		this.cityConnects = cityConnects;
 		this.cityShield = cityShield;
-		this.rotation = TileFeature.NORTH;
+		this.rotation = TileFeatureOld.NORTH;
+	}
+	
+	public Tile(
+			ArrayList<ArrayList<Directions>> roads,
+			ArrayList<ArrayList<Directions>> cities,
+			ArrayList<ArrayList<Directions>> farms,
+			Image image,
+			boolean cloister,
+			boolean cityShield
+	) {
+		this.roads = roads;
+		this.cities = cities;
+		this.farms = farms;
+		this.image = image;
+		this.cloister = cloister;
+		this.cityShield = cityShield;
+		this.rotation = 0;
 	}
 	
 	/**
@@ -148,18 +177,22 @@ public class Tile {
 	 * @return
 	 */
 	public Integer getNorthFeature() {
-		return this.edgeFeatures[TileFeature.NORTH + this.rotation];
+		return this.edgeFeatures[TileFeatureOld.NORTH + this.rotation];
 	}
 	public Integer getEastFeature() {
-		return this.edgeFeatures[TileFeature.EAST + this.rotation];
+		return this.edgeFeatures[TileFeatureOld.EAST + this.rotation];
 	}
 	public Integer getSouthFeature() {
-		return this.edgeFeatures[TileFeature.SOUTH + this.rotation];
+		return this.edgeFeatures[TileFeatureOld.SOUTH + this.rotation];
 	}
 	public Integer getWestFeature() {
-		return this.edgeFeatures[TileFeature.WEST + this.rotation];
+		return this.edgeFeatures[TileFeatureOld.WEST + this.rotation];
 	}
 
+	/**
+	 * 
+	 * @return this Tile's image representation
+	 */
 	public Image getImage() {
 		return this.image;
 	}
@@ -172,4 +205,5 @@ public class Tile {
 	public Integer getRotation() {
 		return rotation;
 	}
+
 }
