@@ -15,21 +15,23 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 	private Tile startingTile;
 
     /**
-     * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window. 
+     * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
      */
 	public CarcassonneView() {
         addMouseListener(this); // adds a mouseListener to the JPanel
 
 		this.deck = new Deck();
 		this.startingTile = new Tile(
-			new Integer[] { TileFeature.CITY, TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD },
+			new Integer[] { TileFeatureOld.CITY, TileFeatureOld.ROAD, TileFeatureOld.GRASS, TileFeatureOld.ROAD },
 			new ImageIcon("src/img/startingtile.png").getImage(),
 			false,
 			false,
 			false
 		);
 		setBackground(java.awt.Color.BLACK);
+
         setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT-200);
+
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
         setLayout(null);

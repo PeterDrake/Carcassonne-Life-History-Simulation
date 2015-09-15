@@ -59,7 +59,9 @@ public class Carcassonne extends JFrame implements MouseListener {
         setSize(WIDTH, HEIGHT);
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
-        getContentPane().setLayout(new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
+
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+
         setFocusable(true);
         setBackground(Color.BLUE);
         setLocationRelativeTo(null); // Open our window in the center of the display
