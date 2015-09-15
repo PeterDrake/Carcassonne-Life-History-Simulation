@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -25,10 +26,17 @@ public class TileTest {
 		origin = baseTile();
 	}
 
-//	@Test
-//	public void testFeatures() throws Exception {
-//		assertEquals(origin.get(), TileFeatureOld.CITY);
-//	}
+	@Test
+	public void testFeatures() throws Exception {
+		assertEquals(
+			origin.getEdge(Directions.NORTH),
+			new ArrayList<TileFeature>() {{
+				add(TileFeature.CITY);
+				add(TileFeature.CITY);
+				add(TileFeature.CITY);
+			}}
+		);
+	}
 	
 	@Test
 	public void testImage() throws Exception {

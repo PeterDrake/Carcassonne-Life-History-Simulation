@@ -206,4 +206,18 @@ public class Tile {
 		return rotation;
 	}
 
+	/**
+	 * 
+	 * @param edge cardinal Direction of edge to return
+	 * @return list of features along edge
+	 */
+	public ArrayList<TileFeature> getEdge(Directions edge) {
+		// TODO Auto-generated method stub
+		return new ArrayList<TileFeature>() {{
+			add(TileFeature.CITY);
+			add(TileFeature.CITY);
+			add(TileFeature.CITY);
+		}};
+	}
+
 }
