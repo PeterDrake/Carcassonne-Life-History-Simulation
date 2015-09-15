@@ -56,10 +56,7 @@ public class CarcassonneModel extends JPanel {
 	 * Searches to detect if all tiles have been used
 	 */
 	public boolean isOver() {
-		if (tileCounter == 72) {
-			return true;
-		} else {
-			return false;
-		}
+		return tileCounter == 72;
 	}
+
 }
