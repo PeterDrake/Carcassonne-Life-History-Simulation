@@ -1,6 +1,7 @@
 package Model;
 
 public interface TileFeature {
+	// TODO: Make this some kind of enum
 	public Boolean connectsTo(Tile destination);
 	public static final Integer CITY  = 0;
 	public static final Integer ROAD  = 1;
