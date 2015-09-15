@@ -1,19 +1,22 @@
 package Model;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 
-public class CarcassonneView extends JPanel {
+public class CarcassonneView extends JPanel implements MouseListener, MouseMotionListener{
 
 	private Deck deck;
 	private Tile startingTile;
 
-	private int tileCounter = 0;
-
 	public CarcassonneView() {
+        addMouseListener(this); // adds a mouseListener to the JPanel
+
 		this.deck = new Deck();
 		this.startingTile = new Tile(
 			new Integer[] { TileFeature.CITY, TileFeature.ROAD, TileFeature.GRASS, TileFeature.ROAD },
@@ -49,14 +52,41 @@ public class CarcassonneView extends JPanel {
 		// TODO: random select tile from the deck
 		// TODO: Keep track of which player is using tile
 
-		tileCounter++;
 	}
 
-	/**
-	 * Searches to detect if all tiles have been used
-	 */
-	public boolean isOver() {
-		return tileCounter == 72;
+
+	@Override
+	public void mouseExited(MouseEvent mouseEvent) {
+		System.out.println("A Mouse exited");
 	}
 
+	@Override
+	public void mouseReleased(MouseEvent mouseEvent) {
+		System.out.println("A Mouse released");
+	}
+
+	@Override
+	public void mousePressed(MouseEvent mouseEvent) {
+		System.out.println("A Mouse pressed");
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent mouseEvent) {
+		System.out.println("A Mouse clicked");
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent mouseEvent) {
+		System.out.println("A Mouse entered");
+	}
+
+    @Override
+    public void mouseDragged(MouseEvent mouseEvent) {
+        // handle mouse drags
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+        // handle mouse moves
+    }
 }
