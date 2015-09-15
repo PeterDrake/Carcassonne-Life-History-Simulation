@@ -14,6 +14,9 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 	private Deck deck;
 	private Tile startingTile;
 
+    /**
+     * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window. 
+     */
 	public CarcassonneView() {
         addMouseListener(this); // adds a mouseListener to the JPanel
 
@@ -33,6 +36,10 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		// TODO: Set up players?
 	}
 
+    /**
+     * The main draw method for the CarcassonneView. This is called automatically by the runloop in Carcassonne.java
+     * @param g the Graphics component. Called automatically by Super
+     */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -46,12 +53,6 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 		g.drawImage(image, 0, 0, null);
 		// tile the image across the component
-	}
-
-	public void addTile() {
-		// TODO: random select tile from the deck
-		// TODO: Keep track of which player is using tile
-
 	}
 
 
