@@ -45,11 +45,11 @@ public class Tile {
 
 	/** Features: */
 	/** List of connected road edges */
-	private ArrayList<ArrayList<Directions>> roads;
+	private ArrayList<ArrayList<Direction>> roads;
 	/** List of connected city edges */
-	private ArrayList<ArrayList<Directions>> cities;
+	private ArrayList<ArrayList<Direction>> cities;
 	/** List of connected farm edges */
-	private ArrayList<ArrayList<Directions>> farms;
+	private ArrayList<ArrayList<Direction>> farms;
 	/** Whether Tile has a cloister */
 	private boolean cloister;
 	
@@ -86,9 +86,9 @@ public class Tile {
 	}
 	
 	public Tile(
-			ArrayList<ArrayList<Directions>> roads,
-			ArrayList<ArrayList<Directions>> cities,
-			ArrayList<ArrayList<Directions>> farms,
+			ArrayList<ArrayList<Direction>> roads,
+			ArrayList<ArrayList<Direction>> cities,
+			ArrayList<ArrayList<Direction>> farms,
 			Image image,
 			boolean cloister,
 			boolean cityShield
@@ -207,11 +207,43 @@ public class Tile {
 	}
 
 	/**
+	 * Translates an absolute cardinal direction into a local relative direction for the Tile's current rotation.
+	 * @param originalDirection
+	 * @return
+	 */
+	private Direction translateDirection(Direction originalDirection) {
+		Direction translatedDirection = originalDirection;
+		for (int i = 0; i < this.rotation; i++) {
+			switch (translatedDirection) {
+			case NORTH:
+				translatedDirection = Direction.WEST;
+				break;
+			case EAST:
+				translatedDirection = Direction.NORTH;
+				break;
+			case SOUTH:
+				translatedDirection = Direction.EAST;
+				break;
+			case WEST:
+				translatedDirection = Direction.SOUTH;
+				break;
+			default:
+				// wat
+				translatedDirection = Direction.NORTH;
+				break;
+			}
+		}
+		return translatedDirection;
+	}
+	
+	/**
 	 * 
 	 * @param edge cardinal Direction of edge to return
 	 * @return list of features along edge
 	 */
-	public ArrayList<TileFeature> getEdge(Directions edge) {
+	public ArrayList<TileFeature> getEdge(Direction absoluteEdge) {
+		Direction localEdge = this.translateDirection(absoluteEdge);
+		
 		// TODO Auto-generated method stub
 		return new ArrayList<TileFeature>() {{
 			add(TileFeature.CITY);
