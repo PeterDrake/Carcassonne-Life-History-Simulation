@@ -4,10 +4,18 @@ package Model;
 
 import java.util.*;
 
+/**
+ * The Deck represents the pile of un-played game tiles. Self-populates with a full standard game's tiles.
+ *
+ */
 public class Deck {
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 
-	// Tiles may be placed on the table
+	/**
+	 * Create a new Deck (pile of unplayed tiles).
+	 * Has no parameters, self-populates with a standard game's tile distribution.
+	 * Note: this will not handle game expansion packs cleanly.
+	 */
 	public Deck() {
 		int i = 0;
 
@@ -168,16 +176,20 @@ public class Deck {
 		Collections.shuffle(this.tiles);
 	}
 
-	// Returns amount of tiles in the list
+	/**
+	 * 
+	 * @return Returns number of tiles remaining in the Deck
+	 */
 	public int count() {
 		return tiles.size();
 	}
 
-	// removes the tile at the bottom of the pile, moving the remainder down.
-	// Probably.
+	/**
+	 * Removes the tile at the bottom of the pile.
+	 * @return a random Tile
+	 */
 	public Tile pullTile() {
-		Tile tempTile = tiles.remove(0);
-		return tempTile;
+		return tiles.remove(0);
 	}
 
 }

@@ -11,15 +11,18 @@
 package Model;
 import java.awt.Image;
 
-
+/**
+ * Represents an individual game Tile
+ *
+ */
 public class Tile {
 
-	// Private members to store tile features
-	// Edges
+	/** Private members to store tile features */
+	/** Edges */
 	private Integer[] edgeFeatures;
-	/**Rotation in degrees*/
+	/** Rotation in counts of 90 degrees */
 	private Integer rotation;
-	// Image, 256x256 PNG
+	/** Image, 256x256 PNG */
 	private Image image;
 	
 	////// Neighbors /////////
@@ -38,15 +41,22 @@ public class Tile {
 
 	////// END NEIGHBORS //////
 
-	// Features:
-	// - Road End
+	/** Features: */
+	/** - Road End */
 	private Boolean roadObstruction;
-	// - City Connects
+	/** - City Connects */
 	private Boolean cityConnects;
-	// - City Shield
+	/** - City Shield */
 	private Boolean cityShield;
 
-	
+	/**
+	 * Create a new tile
+	 * @param edgeFeatures list of tile Features
+	 * @param image graphic representation of the tile
+	 * @param roadObstruction whether the road on the tile (if any) "ends"
+	 * @param cityConnects whether the city on the tile (if any) connects across edges
+	 * @param cityShield whether the city on the tile (if any) has a Shield
+	 */
 	public Tile(
 			Integer[] edgeFeatures, 
 			Image image,
@@ -85,6 +95,10 @@ public class Tile {
 		}
 	}
 
+	/**
+	 * Gets the Tile's north neighbor
+	 * @return the Tile's north neighbor
+	 */
 	public Tile getNorth() {
 		return north;
 	}
@@ -93,6 +107,10 @@ public class Tile {
 		this.north = north;
 	}
 
+	/**
+	 * Gets the Tile's south neighbor
+	 * @return the Tile's south neighbor
+	 */
 	public Tile getSouth() {
 		return south;
 	}
@@ -101,6 +119,10 @@ public class Tile {
 		this.south = south;
 	}
 	
+	/**
+	 * Gets the Tile's east neighbor
+	 * @return the Tile's east neighbor
+	 */
 	public Tile getEast() {
 		return east;
 	}
@@ -109,6 +131,10 @@ public class Tile {
 		this.east = east;
 	}
 
+	/**
+	 * Gets the Tile's west neighbor
+	 * @return the Tile's west neighbor
+	 */
 	public Tile getWest() {
 		return west;
 	}

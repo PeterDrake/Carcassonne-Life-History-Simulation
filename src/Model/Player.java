@@ -7,7 +7,7 @@ import java.util.Stack;
 public class Player {
 
 	/**
-	 * Constructor
+	 * Create a new Player
 	 * @param name
 	 * @param ID
 	 */
@@ -46,7 +46,7 @@ public class Player {
 	/**
 	 * availableFollower()
 	 * 
-	 * @return The next unallocated Follower (not on a tile), otherwise null.
+	 * @return The player's next unallocated Follower (not on a tile), otherwise null.
 	 */
 	public Follower availableFollower() {
 		Follower availableFollower;
@@ -59,6 +59,12 @@ public class Player {
 		return null;
 	}
 	
+	/**
+	 * Wraps Follower.placeOnTile() to place a Follower on a tile
+	 * @param tile
+	 * @param position
+	 * @return the Follower that was placed, otherwise null
+	 */
 	public Follower placeFollower(Tile tile, Integer position) {
 		Follower follower = this.availableFollower();
 		if (follower != null) {
@@ -71,34 +77,58 @@ public class Player {
 	 * Getters/Setters
 	 */
 
+	/**
+	 * Increments Player's score
+	 * @param score
+	 */
 	public void addScore(int score) {
 		playerScore = playerScore + score;
 	}
 
+	/**
+	 * Changes Player's name.
+	 * @param newName
+	 */
 	public void changeName(String newName) {
 		name = newName;
 	}
 
-	// Conceptual, related to player IDs
+	/**
+	 * Change Player's UID. Shouldn't ever be used?
+	 * @param number
+	 */
 	public void changeID(int number) {
 		ID = number;
 	}
 
-
+	/**
+	 * Get Player's current score
+	 * @return the player's numeric score
+	 */
 	public int getScore() {
 		return playerScore;
 	}
 
-	// Gives amount of remaining followers
+	/**
+	 * Get count of Player's Followers.
+	 * @return 
+	 */
 	public int getFollowers() {
 		return followerCount;
 	}
 
+	/**
+	 * Get Player's name.
+	 * @return the player's name
+	 */
 	public String getName() {
 		return name;
 	}
 
-	// Linked to the conceptual player IDs
+	/**
+	 * Linked to the conceptual player IDs. Note: what are these even for?
+	 * @return
+	 */
 	public int getID() {
 		return ID;
 	}
