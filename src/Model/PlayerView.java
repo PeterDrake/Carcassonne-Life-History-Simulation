@@ -22,7 +22,7 @@ public class PlayerView extends JPanel{
 	{
 		setLayout(new GridLayout(3,2));
 		
-	name = new JButton(playerName);
+	//name = new JButton(playerName);
 	name.setEnabled(false); 
 	add(name, BorderLayout.NORTH);
 		
