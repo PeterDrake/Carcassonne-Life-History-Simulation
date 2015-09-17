@@ -16,9 +16,9 @@ public class Carcassonne extends JFrame implements MouseListener {
 
     /** The main game model */
     CarcassonneView gameView;
-    
+
     /** Player Panel */
-    PlayerView playerView; 
+    PlayerView playerView;
 
     /** The main game timer loop */
     Timer runLoop;
@@ -76,9 +76,19 @@ public class Carcassonne extends JFrame implements MouseListener {
     private void run(){
         gameView = new CarcassonneView();
         add(gameView);
-//        playerView = new PlayerView("test"); 
-//        add(playerView); 
- 
+
+        JPanel playerFrame = new JPanel();
+        playerFrame.setSize(WIDTH, HEIGHT - 200);
+        playerFrame.setBackground(Color.ORANGE);
+        playerFrame.setLayout(null);
+        add(playerFrame);
+        playerFrame.repaint();
+
+
+
+//        playerView = new PlayerView("test");
+//        add(playerView);
+
 
         runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override
