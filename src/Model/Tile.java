@@ -71,41 +71,22 @@ public class Tile {
 	/** - City Shield */
 	private Boolean cityShield;
 
-	/**
-	 * Create a new tile
-	 * 
-	 * @param edgeFeatures
-	 *            list of tile Features
-	 * @param image
-	 *            graphic representation of the tile
-	 * @param roadObstruction
-	 *            whether the road on the tile (if any) "ends"
-	 * @param cityConnects
-	 *            whether the city on the tile (if any) connects across edges
-	 * @param cityShield
-	 *            whether the city on the tile (if any) has a Shield
-	 */
-	public Tile(Integer[] edgeFeatures, Image image, Boolean roadObstruction,
-			Boolean cityConnects, Boolean cityShield) {
-		this.edgeFeatures = new Integer[4];
-		System.arraycopy(edgeFeatures, 0, this.edgeFeatures, 0,
-				edgeFeatures.length);
-		;
-		this.image = image;
-		this.roadObstruction = roadObstruction;
-		this.cityConnects = cityConnects;
-		this.cityShield = cityShield;
-		this.rotation = TileFeatureOld.NORTH;
-	}
 
 	/**
+	 * Create a new Tile.
 	 * 
 	 * @param roads
+	 * 		List of lists of EdgeFeatures which identify connected roads
 	 * @param cities
+	 * 		List of lists of EdgeFeatures which identify connected cities
 	 * @param farms
+	 * 		List of lists of EdgeFeatures which identify connected farms
 	 * @param image
+	 * 		Image for the tile, 256x256 PNG plz
 	 * @param cloister
+	 * 		Whether the tile has a Cloister
 	 * @param cityShield
+	 * 		Whether the tile's city (if it has one) has a shield.
 	 */
 	public Tile(
 		ArrayList<ArrayList<FeaturePosition>> roads,
