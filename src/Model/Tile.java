@@ -253,14 +253,148 @@ public class Tile {
 	public ArrayList<TileFeature> getEdge(Direction absoluteEdge) {
 		Direction localEdge = this.translateDirection(absoluteEdge);
 
-		// TODO Auto-generated method stub
-		return new ArrayList<TileFeature>() {
-			{
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
+		ArrayList<TileFeature> edgeFeatures = new ArrayList<TileFeature>(3);
+		
+		// for each kind of edge feature
+		//	iterate through the feature maps
+		//	if the feature is on the edge we're checking
+		//		add the feature to the edge return
+		
+		for (ArrayList<Direction> cityGroup : this.cities) {
+			switch (localEdge) {
+			case NORTH:
+				if (cityGroup.contains(Direction.NORTH_NORTH_WEST)) {
+					edgeFeatures.add(0, TileFeature.CITY);
+				}
+				if (cityGroup.contains(Direction.NORTH)) {
+					edgeFeatures.add(1, TileFeature.CITY);
+				}
+				if (cityGroup.contains(Direction.NORTH_NORTH_EAST)) {
+					edgeFeatures.add(2, TileFeature.CITY);
+				}
+				break;
+			case EAST:
+				if (cityGroup.contains(Direction.EAST_NORTH_EAST)) {
+					edgeFeatures.add(0, TileFeature.CITY);
+				}
+				if (cityGroup.contains(Direction.EAST)) {
+					edgeFeatures.add(1, TileFeature.CITY);
+				}
+				if (cityGroup.contains(Direction.EAST_SOUTH_EAST)) {
+					edgeFeatures.add(2, TileFeature.CITY);
+				}
+				break;
+			case SOUTH:
+				if (cityGroup.contains(Direction.SOUTH_SOUTH_EAST)) {
+					edgeFeatures.add(0, TileFeature.CITY);
+				}
+				if (cityGroup.contains(Direction.SOUTH)) {
+					edgeFeatures.add(1, TileFeature.CITY);
+				}
+				if (cityGroup.contains(Direction.SOUTH_SOUTH_WEST)) {
+					edgeFeatures.add(2, TileFeature.CITY);
+				}
+				break;
+			case WEST:
+				if (cityGroup.contains(Direction.WEST_SOUTH_WEST)) {
+					edgeFeatures.add(0, TileFeature.CITY);
+				}
+				if (cityGroup.contains(Direction.WEST)) {
+					edgeFeatures.add(1, TileFeature.CITY);
+				}
+				if (cityGroup.contains(Direction.WEST_NORTH_WEST)) {
+					edgeFeatures.add(2, TileFeature.CITY);
+				}
+				break;
 			}
-		};
+		}
+		
+		for (ArrayList<Direction> roadGroup : this.roads) {
+			switch (localEdge) {
+			case NORTH:
+				if (roadGroup.contains(Direction.NORTH)) {
+					edgeFeatures.add(1, TileFeature.ROAD);
+				}
+				break;
+			case EAST:
+				if (roadGroup.contains(Direction.EAST)) {
+					edgeFeatures.add(1, TileFeature.ROAD);
+				}
+				break;
+			case SOUTH:
+				if (roadGroup.contains(Direction.SOUTH)) {
+					edgeFeatures.add(1, TileFeature.ROAD);
+				}
+				break;
+			case WEST:
+				if (roadGroup.contains(Direction.WEST)) {
+					edgeFeatures.add(1, TileFeature.ROAD);
+				}
+				break;
+			}
+		}
+
+		for (ArrayList<Direction> farmsGroup : this.farms) {
+			switch (localEdge) {
+			case NORTH:
+				if (farmsGroup.contains(Direction.NORTH_NORTH_WEST)) {
+					edgeFeatures.add(0, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(Direction.NORTH)) {
+					edgeFeatures.add(1, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(Direction.NORTH_NORTH_EAST)) {
+					edgeFeatures.add(2, TileFeature.GRASS);
+				}
+				break;
+			case EAST:
+				if (farmsGroup.contains(Direction.EAST_NORTH_EAST)) {
+					edgeFeatures.add(0, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(Direction.EAST)) {
+					edgeFeatures.add(1, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(Direction.EAST_SOUTH_EAST)) {
+					edgeFeatures.add(2, TileFeature.GRASS);
+				}
+				break;
+			case SOUTH:
+				if (farmsGroup.contains(Direction.SOUTH_SOUTH_EAST)) {
+					edgeFeatures.add(0, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(Direction.SOUTH)) {
+					edgeFeatures.add(1, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(Direction.SOUTH_SOUTH_WEST)) {
+					edgeFeatures.add(2, TileFeature.GRASS);
+				}
+				break;
+			case WEST:
+				if (farmsGroup.contains(Direction.WEST_SOUTH_WEST)) {
+					edgeFeatures.add(0, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(Direction.WEST)) {
+					edgeFeatures.add(1, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(Direction.WEST_NORTH_WEST)) {
+					edgeFeatures.add(2, TileFeature.GRASS);
+				}
+				break;
+			}
+		}
+		
+		// Note: edges must have three features
+		
+		return edgeFeatures;
+		
+		// TODO Auto-generated method stub
+//		return new ArrayList<TileFeature>() {
+//			{
+//				add(TileFeature.CITY);
+//				add(TileFeature.CITY);
+//				add(TileFeature.CITY);
+//			}
+//		};
 	}
 
 }
