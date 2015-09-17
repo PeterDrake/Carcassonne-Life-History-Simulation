@@ -2,6 +2,7 @@ package Model;
 
 //constructs the Carcassonne deck
 
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -20,28 +21,135 @@ public class Deck {
 		int i = 0;
 
 		// TODO: Upgrade to new Tile features abstraction
-		
-		// 1 crossCity in game
-		tiles.add(new Tile(new Integer[] { TileFeatureOld.GRASS, TileFeatureOld.CITY,
-				TileFeatureOld.GRASS, TileFeatureOld.CITY }, null, false, true, false));
 
 		// 2 crossCityShield in game
-		for (i = 0; i < 2; i++) {
-			tiles.add(new Tile(new Integer[] { TileFeatureOld.GRASS,
-					TileFeatureOld.CITY, TileFeatureOld.GRASS, TileFeatureOld.CITY },
-					null, false, true, true));
-		}
+        for (int i = 0; i < 2; i++) {
+            tiles.add(new Tile(
+                    // roads
+                    null,
+                    // cities
+                    new ArrayList<ArrayList<FeaturePosition>>() {{
+                        add(new ArrayList<FeaturePosition>() {{
+                            add(new FeaturePosition(Direction.EAST, EdgePosition.LEFT));
+                            add(new FeaturePosition(Direction.EAST, EdgePosition.CENTER));
+                            add(new FeaturePosition(Direction.EAST, EdgePosition.RIGHT));
+                            add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
+                            add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
+                            add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
+                        }});
+                    }},
+                    // farms
+                    new ArrayList<ArrayList<FeaturePosition>>() {{
+                        add(new ArrayList<FeaturePosition>() {{
+                            add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
+                            add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
+                            add(new FeaturePosition(Direction.NORTH, EdgePosition.LEFT));
+                        }});
+                        add(new ArrayList<FeaturePosition>() {{
+                            add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
+                            add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
+                            add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
+                        }});
+                    }},
+                    new ImageIcon("tile22.png").getImage(),
+                    false,
+                    true));
+        }
 
-		// 3 city3Side in game
+		// 1 crossCity in game
+        tiles.add(new Tile(
+                // roads
+                null,
+                // cities
+                new ArrayList<ArrayList<FeaturePosition>>() {{
+                    add(new ArrayList<FeaturePosition>() {{
+                        add(new FeaturePosition(Direction.NORTH, EdgePosition.LEFT));
+                        add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
+                        add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
+                        add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
+                        add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
+                        add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
+                    }});
+                }},
+                // farms
+                new ArrayList<ArrayList<FeaturePosition>>() {{
+                    add(new ArrayList<FeaturePosition>() {{
+                        add(new FeaturePosition(Direction.EAST, EdgePosition.RIGHT));
+                        add(new FeaturePosition(Direction.EAST, EdgePosition.CENTER));
+                        add(new FeaturePosition(Direction.EAST, EdgePosition.LEFT));
+                    }});
+                    add(new ArrayList<FeaturePosition>() {{
+                        add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
+                        add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
+                        add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
+                    }});
+                }},
+                new ImageIcon("tile23.png").getImage(),
+                false,
+                false));
+
+
+        // 3 city3Side in game
 		for (i = 0; i < 3; i++) {
-			tiles.add(new Tile(new Integer[] { TileFeatureOld.CITY,
-					TileFeatureOld.CITY, TileFeatureOld.GRASS, TileFeatureOld.CITY },
-					null, false, true, false));
-		}
+            tiles.add(new Tile(
+                    // roads
+                    null,
+                    // cities
+                    new ArrayList<ArrayList<FeaturePosition>>() {{
+                        add(new ArrayList<FeaturePosition>() {{
+                            add(new FeaturePosition(Direction.EAST, EdgePosition.LEFT));
+                            add(new FeaturePosition(Direction.EAST, EdgePosition.CENTER));
+                            add(new FeaturePosition(Direction.EAST, EdgePosition.RIGHT));
+                            add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
+                            add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
+                            add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
+                            add(new FeaturePosition(Direction.NORTH, EdgePosition.LEFT));
+                            add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
+                            add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
+                        }});
+                    }},
+                    // farms
+                    new ArrayList<ArrayList<FeaturePosition>>() {{
+                        add(new ArrayList<FeaturePosition>() {{
+                            add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
+                            add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
+                            add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
+                        }});
+                    }},
+                    new ImageIcon("tile26.png").getImage(),
+                    false,
+                    false));
+        }
 
 		// 1 city3SideShield in game
-		tiles.add(new Tile(new Integer[] { TileFeatureOld.CITY, TileFeatureOld.CITY,
-				TileFeatureOld.GRASS, TileFeatureOld.CITY }, null, false, true, true));
+        tiles.add(new Tile(
+                // roads
+                null,
+                // cities
+                new ArrayList<ArrayList<FeaturePosition>>() {{
+                    add(new ArrayList<FeaturePosition>() {{
+                        add(new FeaturePosition(Direction.EAST, EdgePosition.LEFT));
+                        add(new FeaturePosition(Direction.EAST, EdgePosition.CENTER));
+                        add(new FeaturePosition(Direction.EAST, EdgePosition.RIGHT));
+                        add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
+                        add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
+                        add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
+                        add(new FeaturePosition(Direction.NORTH, EdgePosition.LEFT));
+                        add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
+                        add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
+                    }});
+                }},
+                // farms
+                new ArrayList<ArrayList<FeaturePosition>>() {{
+                    add(new ArrayList<FeaturePosition>() {{
+                        add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
+                        add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
+                        add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
+                    }});
+                }},
+                new ImageIcon("tile10.png").getImage(),
+                false,
+                true));
 
 		// 1 city3SideRoad in game
 		tiles.add(new Tile(new Integer[] { TileFeatureOld.CITY, TileFeatureOld.CITY,
@@ -173,13 +281,13 @@ public class Deck {
 					TileFeatureOld.GRASS, TileFeatureOld.GRASS, TileFeatureOld.GRASS },
 					null, false, false, false));
 		}
-		
+
 		// Aaaaand shuffle it up!
 		Collections.shuffle(this.tiles);
 	}
 
 	/**
-	 * 
+	 *
 	 * @return Returns number of tiles remaining in the Deck
 	 */
 	public int count() {
