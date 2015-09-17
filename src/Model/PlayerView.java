@@ -18,6 +18,7 @@ public class PlayerView extends JPanel{
 	 * takes in player name, score, follower count
 	 */
 	public PlayerView(String playerName, int s, int fc)
+	//TODO: take in array of players. Use for to create all boxes
 	{
 
 		setLayout(new GridLayout(3,1));
