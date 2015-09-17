@@ -34,8 +34,9 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
-        setLayout(null);
+//        setLayout(null);
 		// TODO: Set up players?
+        
 	}
 
     /**

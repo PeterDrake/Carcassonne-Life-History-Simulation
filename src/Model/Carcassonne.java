@@ -57,7 +57,6 @@ public class Carcassonne extends JFrame implements MouseListener {
         setTitle("Carcassonne - The bitchinest game in all of christendom.");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
-        setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -68,17 +67,20 @@ public class Carcassonne extends JFrame implements MouseListener {
         addMouseListener(this); // We can receive mouse events like clicks
 
         getContentPane().removeAll();   // Start from scratch
+        gameView = new CarcassonneView();
+        add(gameView);
+        
+
+        playerView = new PlayerView("Arthur Testingson", 12, 3);
+        add(playerView); 
+        
+        setVisible(true);
     }
 
     /**
      * Initializes the main game runloop, which is based on a JavaX Swing Timer running at ~50 fps (20 ms delay).
      */
     private void run(){
-        gameView = new CarcassonneView();
-        add(gameView);
-//        playerView = new PlayerView("test"); 
-//        add(playerView); 
- 
 
         runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override
