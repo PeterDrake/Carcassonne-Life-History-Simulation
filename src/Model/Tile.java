@@ -12,6 +12,7 @@ package Model;
 import java.awt.Image;
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents an individual game Tile
@@ -45,14 +46,24 @@ public class Tile {
 
 	/** Features: */
 	/** List of connected road edges */
-	private ArrayList<ArrayList<Direction>> roads;
+	private ArrayList<ArrayList<FeaturePosition>> roads;
 	/** List of connected city edges */
-	private ArrayList<ArrayList<Direction>> cities;
+	private ArrayList<ArrayList<FeaturePosition>> cities;
 	/** List of connected farm edges */
-	private ArrayList<ArrayList<Direction>> farms;
+	private ArrayList<ArrayList<FeaturePosition>> farms;
+		
+	// for the future
+	//	private HashMap<
+	//	TileFeature, ArrayList<
+	//		ArrayList<
+	//			HashMap<Direction, EdgePosition>
+	//		>
+	//	>
+	//> features;
+
 	/** Whether Tile has a cloister */
 	private boolean cloister;
-
+	
 	/** - Road End */
 	private Boolean roadObstruction;
 	/** - City Connects */
@@ -60,37 +71,31 @@ public class Tile {
 	/** - City Shield */
 	private Boolean cityShield;
 
-	/**
-	 * Create a new tile
-	 * 
-	 * @param edgeFeatures
-	 *            list of tile Features
-	 * @param image
-	 *            graphic representation of the tile
-	 * @param roadObstruction
-	 *            whether the road on the tile (if any) "ends"
-	 * @param cityConnects
-	 *            whether the city on the tile (if any) connects across edges
-	 * @param cityShield
-	 *            whether the city on the tile (if any) has a Shield
-	 */
-	public Tile(Integer[] edgeFeatures, Image image, Boolean roadObstruction,
-			Boolean cityConnects, Boolean cityShield) {
-		this.edgeFeatures = new Integer[4];
-		System.arraycopy(edgeFeatures, 0, this.edgeFeatures, 0,
-				edgeFeatures.length);
-		;
-		this.image = image;
-		this.roadObstruction = roadObstruction;
-		this.cityConnects = cityConnects;
-		this.cityShield = cityShield;
-		this.rotation = TileFeatureOld.NORTH;
-	}
 
-	public Tile(ArrayList<ArrayList<Direction>> roads,
-			ArrayList<ArrayList<Direction>> cities,
-			ArrayList<ArrayList<Direction>> farms, Image image,
-			boolean cloister, boolean cityShield) {
+	/**
+	 * Create a new Tile.
+	 * 
+	 * @param roads
+	 * 		List of lists of EdgeFeatures which identify connected roads
+	 * @param cities
+	 * 		List of lists of EdgeFeatures which identify connected cities
+	 * @param farms
+	 * 		List of lists of EdgeFeatures which identify connected farms
+	 * @param image
+	 * 		Image for the tile, 256x256 PNG plz
+	 * @param cloister
+	 * 		Whether the tile has a Cloister
+	 * @param cityShield
+	 * 		Whether the tile's city (if it has one) has a shield.
+	 */
+	public Tile(
+		ArrayList<ArrayList<FeaturePosition>> roads,
+		ArrayList<ArrayList<FeaturePosition>> cities,
+		ArrayList<ArrayList<FeaturePosition>> farms,
+		Image image,
+		boolean cloister,
+		boolean cityShield
+	) {
 		this.roads = roads;
 		this.cities = cities;
 		this.farms = farms;
@@ -250,17 +255,42 @@ public class Tile {
 	 *            cardinal Direction of edge to return
 	 * @return list of features along edge
 	 */
-	public ArrayList<TileFeature> getEdge(Direction absoluteEdge) {
+	public HashMap<EdgePosition, TileFeature> getEdge(Direction absoluteEdge) {
 		Direction localEdge = this.translateDirection(absoluteEdge);
 
-		// TODO Auto-generated method stub
-		return new ArrayList<TileFeature>() {
-			{
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
+		HashMap<EdgePosition, TileFeature> edgeFeatures = new HashMap<EdgePosition, TileFeature>();
+		
+		// for each kind of edge feature
+		//	iterate through the feature maps
+		//	if the feature is on the edge we're checking
+		//		add the feature to the edge return
+		
+		for (ArrayList<FeaturePosition> cityGroup : this.cities) {
+			for (FeaturePosition cityPosition : cityGroup) {
+				if (cityPosition.direction == localEdge) {
+					edgeFeatures.put(cityPosition.position, TileFeature.CITY);
+				}
 			}
-		};
+		}
+		for (ArrayList<FeaturePosition> roadGroup : this.roads) {
+			for (FeaturePosition roadPosition : roadGroup) {
+				if (roadPosition.direction == localEdge) {
+					edgeFeatures.put(roadPosition.position, TileFeature.ROAD);
+				}
+			}
+		}
+		for (ArrayList<FeaturePosition> farmGroup : this.farms) {
+			for (FeaturePosition farmPosition : farmGroup) {
+				if (farmPosition.direction == localEdge) {
+					edgeFeatures.put(farmPosition.position, TileFeature.GRASS);					
+				}
+			}
+		}
+				
+		
+		// Note: edges have three features
+		
+		return edgeFeatures;
 	}
 
 }

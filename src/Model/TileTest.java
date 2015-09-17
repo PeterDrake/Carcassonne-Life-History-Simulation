@@ -2,6 +2,7 @@ package Model;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
@@ -17,8 +18,39 @@ public class TileTest {
 	protected static Image baseImage = new ImageIcon("img/startingtile.png").getImage();
 
 	protected static Tile baseTile() {
-		return new Tile(new Integer[]{TileFeatureOld.CITY, TileFeatureOld.ROAD, TileFeatureOld.GRASS, TileFeatureOld.ROAD},
-				baseImage, false, false, false);
+		return new Tile(
+			// roads
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.EAST, EdgePosition.CENTER));
+				}});
+			}},
+			// cities
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.LEFT));
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
+				}});
+			}},
+			// farms
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.EAST, EdgePosition.LEFT));
+				}});
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.EAST, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
+				}});
+			}},
+			baseImage,
+			false,
+			false);
 	}
 	
 	@Before
@@ -29,13 +61,36 @@ public class TileTest {
 	@Test
 	public void testFeatures() throws Exception {
 		assertEquals(
-			origin.getEdge(Direction.NORTH),
-			new ArrayList<TileFeature>() {{
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
-			}}
+			new HashMap<EdgePosition, TileFeature>() {{
+				put(EdgePosition.LEFT, TileFeature.CITY);
+				put(EdgePosition.CENTER, TileFeature.CITY);
+				put(EdgePosition.RIGHT, TileFeature.CITY);
+			}},
+			origin.getEdge(Direction.NORTH)
 		);
+	}
+	
+	@Test
+	public void testRotatedFeatures() throws Exception {
+		origin.rotateClockwise();
+		assertEquals(
+				new HashMap<EdgePosition, TileFeature>() {{
+					put(EdgePosition.LEFT, TileFeature.CITY);
+					put(EdgePosition.CENTER, TileFeature.CITY);
+					put(EdgePosition.RIGHT, TileFeature.CITY);
+				}},
+				origin.getEdge(Direction.EAST)
+			);
+		origin.rotateCounterclockwise();
+		origin.rotateCounterclockwise();
+		assertEquals(
+				new HashMap<EdgePosition, TileFeature>() {{
+					put(EdgePosition.LEFT, TileFeature.CITY);
+					put(EdgePosition.CENTER, TileFeature.CITY);
+					put(EdgePosition.RIGHT, TileFeature.CITY);
+				}},
+				origin.getEdge(Direction.WEST)
+			);
 	}
 	
 	@Test
