@@ -12,6 +12,7 @@ package Model;
 import java.awt.Image;
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents an individual game Tile
@@ -45,14 +46,15 @@ public class Tile {
 
 	/** Features: */
 	/** List of connected road edges */
-	private ArrayList<ArrayList<Direction>> roads;
+	private ArrayList<ArrayList<OldDirection>> roads;
 	/** List of connected city edges */
-	private ArrayList<ArrayList<Direction>> cities;
+	private ArrayList<ArrayList<OldDirection>> cities;
 	/** List of connected farm edges */
-	private ArrayList<ArrayList<Direction>> farms;
+	private ArrayList<ArrayList<OldDirection>> farms;
+		
 	/** Whether Tile has a cloister */
 	private boolean cloister;
-
+	
 	/** - Road End */
 	private Boolean roadObstruction;
 	/** - City Connects */
@@ -87,9 +89,9 @@ public class Tile {
 		this.rotation = TileFeatureOld.NORTH;
 	}
 
-	public Tile(ArrayList<ArrayList<Direction>> roads,
-			ArrayList<ArrayList<Direction>> cities,
-			ArrayList<ArrayList<Direction>> farms, Image image,
+	public Tile(ArrayList<ArrayList<OldDirection>> roads,
+			ArrayList<ArrayList<OldDirection>> cities,
+			ArrayList<ArrayList<OldDirection>> farms, Image image,
 			boolean cloister, boolean cityShield) {
 		this.roads = roads;
 		this.cities = cities;
@@ -219,25 +221,25 @@ public class Tile {
 	 * @param originalDirection
 	 * @return
 	 */
-	private Direction translateDirection(Direction originalDirection) {
-		Direction translatedDirection = originalDirection;
+	private OldDirection translateDirection(OldDirection originalDirection) {
+		OldDirection translatedDirection = originalDirection;
 		for (int i = 0; i < this.rotation; i++) {
 			switch (translatedDirection) {
 			case NORTH:
-				translatedDirection = Direction.WEST;
+				translatedDirection = OldDirection.WEST;
 				break;
 			case EAST:
-				translatedDirection = Direction.NORTH;
+				translatedDirection = OldDirection.NORTH;
 				break;
 			case SOUTH:
-				translatedDirection = Direction.EAST;
+				translatedDirection = OldDirection.EAST;
 				break;
 			case WEST:
-				translatedDirection = Direction.SOUTH;
+				translatedDirection = OldDirection.SOUTH;
 				break;
 			default:
 				// wat
-				translatedDirection = Direction.NORTH;
+				translatedDirection = OldDirection.NORTH;
 				break;
 			}
 		}
@@ -250,17 +252,151 @@ public class Tile {
 	 *            cardinal Direction of edge to return
 	 * @return list of features along edge
 	 */
-	public ArrayList<TileFeature> getEdge(Direction absoluteEdge) {
-		Direction localEdge = this.translateDirection(absoluteEdge);
+	public HashMap<EdgePosition, TileFeature> getEdge(OldDirection absoluteEdge) {
+		OldDirection localEdge = this.translateDirection(absoluteEdge);
 
-		// TODO Auto-generated method stub
-		return new ArrayList<TileFeature>() {
-			{
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
+		HashMap<EdgePosition, TileFeature> edgeFeatures = new HashMap<EdgePosition, TileFeature>();
+		
+		// for each kind of edge feature
+		//	iterate through the feature maps
+		//	if the feature is on the edge we're checking
+		//		add the feature to the edge return
+		
+		for (ArrayList<OldDirection> cityGroup : this.cities) {
+			switch (localEdge) {
+			case NORTH:
+				if (cityGroup.contains(OldDirection.NORTH_NORTH_WEST)) {
+					edgeFeatures.put(EdgePosition.LEFT, TileFeature.CITY);
+				}
+				if (cityGroup.contains(OldDirection.NORTH)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.CITY);
+				}
+				if (cityGroup.contains(OldDirection.NORTH_NORTH_EAST)) {
+					edgeFeatures.put(EdgePosition.RIGHT, TileFeature.CITY);
+				}
+				break;
+			case EAST:
+				if (cityGroup.contains(OldDirection.EAST_NORTH_EAST)) {
+					edgeFeatures.put(EdgePosition.LEFT, TileFeature.CITY);
+				}
+				if (cityGroup.contains(OldDirection.EAST)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.CITY);
+				}
+				if (cityGroup.contains(OldDirection.EAST_SOUTH_EAST)) {
+					edgeFeatures.put(EdgePosition.RIGHT, TileFeature.CITY);
+				}
+				break;
+			case SOUTH:
+				if (cityGroup.contains(OldDirection.SOUTH_SOUTH_EAST)) {
+					edgeFeatures.put(EdgePosition.LEFT, TileFeature.CITY);
+				}
+				if (cityGroup.contains(OldDirection.SOUTH)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.CITY);
+				}
+				if (cityGroup.contains(OldDirection.SOUTH_SOUTH_WEST)) {
+					edgeFeatures.put(EdgePosition.RIGHT, TileFeature.CITY);
+				}
+				break;
+			case WEST:
+				if (cityGroup.contains(OldDirection.WEST_SOUTH_WEST)) {
+					edgeFeatures.put(EdgePosition.LEFT, TileFeature.CITY);
+				}
+				if (cityGroup.contains(OldDirection.WEST)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.CITY);
+				}
+				if (cityGroup.contains(OldDirection.WEST_NORTH_WEST)) {
+					edgeFeatures.put(EdgePosition.RIGHT, TileFeature.CITY);
+				}
+				break;
 			}
-		};
+		}
+		
+		for (ArrayList<OldDirection> roadGroup : this.roads) {
+			switch (localEdge) {
+			case NORTH:
+				if (roadGroup.contains(OldDirection.NORTH)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.ROAD);
+				}
+				break;
+			case EAST:
+				if (roadGroup.contains(OldDirection.EAST)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.ROAD);
+				}
+				break;
+			case SOUTH:
+				if (roadGroup.contains(OldDirection.SOUTH)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.ROAD);
+				}
+				break;
+			case WEST:
+				if (roadGroup.contains(OldDirection.WEST)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.ROAD);
+				}
+				break;
+			}
+		}
+
+		for (ArrayList<OldDirection> farmsGroup : this.farms) {
+			switch (localEdge) {
+			case NORTH:
+				if (farmsGroup.contains(OldDirection.NORTH_NORTH_WEST)) {
+					edgeFeatures.put(EdgePosition.LEFT, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(OldDirection.NORTH)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(OldDirection.NORTH_NORTH_EAST)) {
+					edgeFeatures.put(EdgePosition.RIGHT, TileFeature.GRASS);
+				}
+				break;
+			case EAST:
+				if (farmsGroup.contains(OldDirection.EAST_NORTH_EAST)) {
+					edgeFeatures.put(EdgePosition.LEFT, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(OldDirection.EAST)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(OldDirection.EAST_SOUTH_EAST)) {
+					edgeFeatures.put(EdgePosition.RIGHT, TileFeature.GRASS);
+				}
+				break;
+			case SOUTH:
+				if (farmsGroup.contains(OldDirection.SOUTH_SOUTH_EAST)) {
+					edgeFeatures.put(EdgePosition.LEFT, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(OldDirection.SOUTH)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(OldDirection.SOUTH_SOUTH_WEST)) {
+					edgeFeatures.put(EdgePosition.RIGHT, TileFeature.GRASS);
+				}
+				break;
+			case WEST:
+				if (farmsGroup.contains(OldDirection.WEST_SOUTH_WEST)) {
+					edgeFeatures.put(EdgePosition.LEFT, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(OldDirection.WEST)) {
+					edgeFeatures.put(EdgePosition.CENTER, TileFeature.GRASS);
+				}
+				if (farmsGroup.contains(OldDirection.WEST_NORTH_WEST)) {
+					edgeFeatures.put(EdgePosition.RIGHT, TileFeature.GRASS);
+				}
+				break;
+			}
+		}
+		
+		// Note: edges must have three features
+		
+		return edgeFeatures;
+		
+		// TODO Auto-generated method stub
+//		return new ArrayList<TileFeature>() {
+//			{
+//				add(TileFeature.CITY);
+//				add(TileFeature.CITY);
+//				add(TileFeature.CITY);
+//			}
+//		};
 	}
 
 }

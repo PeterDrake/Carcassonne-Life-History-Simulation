@@ -2,6 +2,7 @@ package Model;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
@@ -16,9 +17,42 @@ public class TileTest {
 	private Tile origin;
 	protected static Image baseImage = new ImageIcon("img/startingtile.png").getImage();
 
-	protected static Tile baseTile() {
+	protected static Tile oldBaseTile() {
 		return new Tile(new Integer[]{TileFeatureOld.CITY, TileFeatureOld.ROAD, TileFeatureOld.GRASS, TileFeatureOld.ROAD},
 				baseImage, false, false, false);
+	}
+	
+	protected static Tile baseTile() {
+		return new Tile(
+			new ArrayList<ArrayList<OldDirection>>() {{
+				add(new ArrayList<OldDirection>() {{
+					add(OldDirection.WEST);
+					add(OldDirection.EAST);
+				}});
+			}},
+			new ArrayList<ArrayList<OldDirection>>() {{
+				add(new ArrayList<OldDirection>() {{
+					add(OldDirection.NORTH_NORTH_EAST);
+					add(OldDirection.NORTH);
+					add(OldDirection.NORTH_NORTH_WEST);
+				}});
+			}},
+			new ArrayList<ArrayList<OldDirection>>() {{
+				add(new ArrayList<OldDirection>() {{
+					add(OldDirection.EAST_NORTH_EAST);
+					add(OldDirection.WEST_NORTH_WEST);
+				}});
+				add(new ArrayList<OldDirection>() {{
+					add(OldDirection.EAST_SOUTH_EAST);
+					add(OldDirection.SOUTH_SOUTH_EAST);
+					add(OldDirection.SOUTH);
+					add(OldDirection.SOUTH_SOUTH_WEST);
+					add(OldDirection.WEST_SOUTH_WEST);
+				}});
+			}},
+			baseImage,
+			false,
+			false);
 	}
 	
 	@Before
@@ -29,13 +63,36 @@ public class TileTest {
 	@Test
 	public void testFeatures() throws Exception {
 		assertEquals(
-			origin.getEdge(Direction.NORTH),
-			new ArrayList<TileFeature>() {{
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
+			origin.getEdge(OldDirection.NORTH),
+			new HashMap<EdgePosition, TileFeature>() {{
+				put(EdgePosition.LEFT, TileFeature.CITY);
+				put(EdgePosition.CENTER, TileFeature.CITY);
+				put(EdgePosition.RIGHT, TileFeature.CITY);
 			}}
 		);
+	}
+	
+	@Test
+	public void testRotatedFeatures() throws Exception {
+		origin.rotateClockwise();
+		assertEquals(
+				origin.getEdge(OldDirection.EAST),
+				new HashMap<EdgePosition, TileFeature>() {{
+					put(EdgePosition.LEFT, TileFeature.CITY);
+					put(EdgePosition.CENTER, TileFeature.CITY);
+					put(EdgePosition.RIGHT, TileFeature.CITY);
+				}}
+			);
+		origin.rotateCounterclockwise();
+		origin.rotateCounterclockwise();
+		assertEquals(
+				origin.getEdge(OldDirection.WEST),
+				new HashMap<EdgePosition, TileFeature>() {{
+					put(EdgePosition.LEFT, TileFeature.CITY);
+					put(EdgePosition.CENTER, TileFeature.CITY);
+					put(EdgePosition.RIGHT, TileFeature.CITY);
+				}}
+			);
 	}
 	
 	@Test
