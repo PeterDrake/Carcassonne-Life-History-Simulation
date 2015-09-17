@@ -24,30 +24,33 @@ public class TileTest {
 	
 	protected static Tile baseTile() {
 		return new Tile(
-			new ArrayList<ArrayList<OldDirection>>() {{
-				add(new ArrayList<OldDirection>() {{
-					add(OldDirection.WEST);
-					add(OldDirection.EAST);
+			// roads
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.EAST, EdgePosition.CENTER));
 				}});
 			}},
-			new ArrayList<ArrayList<OldDirection>>() {{
-				add(new ArrayList<OldDirection>() {{
-					add(OldDirection.NORTH_NORTH_EAST);
-					add(OldDirection.NORTH);
-					add(OldDirection.NORTH_NORTH_WEST);
+			// cities
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.LEFT));
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
 				}});
 			}},
-			new ArrayList<ArrayList<OldDirection>>() {{
-				add(new ArrayList<OldDirection>() {{
-					add(OldDirection.EAST_NORTH_EAST);
-					add(OldDirection.WEST_NORTH_WEST);
+			// farms
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.EAST, EdgePosition.LEFT));
 				}});
-				add(new ArrayList<OldDirection>() {{
-					add(OldDirection.EAST_SOUTH_EAST);
-					add(OldDirection.SOUTH_SOUTH_EAST);
-					add(OldDirection.SOUTH);
-					add(OldDirection.SOUTH_SOUTH_WEST);
-					add(OldDirection.WEST_SOUTH_WEST);
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.EAST, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
 				}});
 			}},
 			baseImage,
@@ -63,12 +66,12 @@ public class TileTest {
 	@Test
 	public void testFeatures() throws Exception {
 		assertEquals(
-			origin.getEdge(OldDirection.NORTH),
 			new HashMap<EdgePosition, TileFeature>() {{
 				put(EdgePosition.LEFT, TileFeature.CITY);
 				put(EdgePosition.CENTER, TileFeature.CITY);
 				put(EdgePosition.RIGHT, TileFeature.CITY);
-			}}
+			}},
+			origin.getEdge(Direction.NORTH)
 		);
 	}
 	
@@ -76,22 +79,22 @@ public class TileTest {
 	public void testRotatedFeatures() throws Exception {
 		origin.rotateClockwise();
 		assertEquals(
-				origin.getEdge(OldDirection.EAST),
 				new HashMap<EdgePosition, TileFeature>() {{
 					put(EdgePosition.LEFT, TileFeature.CITY);
 					put(EdgePosition.CENTER, TileFeature.CITY);
 					put(EdgePosition.RIGHT, TileFeature.CITY);
-				}}
+				}},
+				origin.getEdge(Direction.EAST)
 			);
 		origin.rotateCounterclockwise();
 		origin.rotateCounterclockwise();
 		assertEquals(
-				origin.getEdge(OldDirection.WEST),
 				new HashMap<EdgePosition, TileFeature>() {{
 					put(EdgePosition.LEFT, TileFeature.CITY);
 					put(EdgePosition.CENTER, TileFeature.CITY);
 					put(EdgePosition.RIGHT, TileFeature.CITY);
-				}}
+				}},
+				origin.getEdge(Direction.WEST)
 			);
 	}
 	
