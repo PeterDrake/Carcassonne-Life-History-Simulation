@@ -2,6 +2,7 @@ package Model;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
@@ -23,30 +24,30 @@ public class TileTest {
 	
 	protected static Tile baseTile() {
 		return new Tile(
-			new ArrayList<ArrayList<Direction>>() {{
-				add(new ArrayList<Direction>() {{
-					add(Direction.WEST);
-					add(Direction.EAST);
+			new ArrayList<ArrayList<OldDirection>>() {{
+				add(new ArrayList<OldDirection>() {{
+					add(OldDirection.WEST);
+					add(OldDirection.EAST);
 				}});
 			}},
-			new ArrayList<ArrayList<Direction>>() {{
-				add(new ArrayList<Direction>() {{
-					add(Direction.NORTH_NORTH_EAST);
-					add(Direction.NORTH);
-					add(Direction.NORTH_NORTH_WEST);
+			new ArrayList<ArrayList<OldDirection>>() {{
+				add(new ArrayList<OldDirection>() {{
+					add(OldDirection.NORTH_NORTH_EAST);
+					add(OldDirection.NORTH);
+					add(OldDirection.NORTH_NORTH_WEST);
 				}});
 			}},
-			new ArrayList<ArrayList<Direction>>() {{
-				add(new ArrayList<Direction>() {{
-					add(Direction.EAST_NORTH_EAST);
-					add(Direction.WEST_NORTH_WEST);
+			new ArrayList<ArrayList<OldDirection>>() {{
+				add(new ArrayList<OldDirection>() {{
+					add(OldDirection.EAST_NORTH_EAST);
+					add(OldDirection.WEST_NORTH_WEST);
 				}});
-				add(new ArrayList<Direction>() {{
-					add(Direction.EAST_SOUTH_EAST);
-					add(Direction.SOUTH_SOUTH_EAST);
-					add(Direction.SOUTH);
-					add(Direction.SOUTH_SOUTH_WEST);
-					add(Direction.WEST_SOUTH_WEST);
+				add(new ArrayList<OldDirection>() {{
+					add(OldDirection.EAST_SOUTH_EAST);
+					add(OldDirection.SOUTH_SOUTH_EAST);
+					add(OldDirection.SOUTH);
+					add(OldDirection.SOUTH_SOUTH_WEST);
+					add(OldDirection.WEST_SOUTH_WEST);
 				}});
 			}},
 			baseImage,
@@ -62,11 +63,11 @@ public class TileTest {
 	@Test
 	public void testFeatures() throws Exception {
 		assertEquals(
-			origin.getEdge(Direction.NORTH),
-			new ArrayList<TileFeature>() {{
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
-				add(TileFeature.CITY);
+			origin.getEdge(OldDirection.NORTH),
+			new HashMap<EdgePosition, TileFeature>() {{
+				put(EdgePosition.LEFT, TileFeature.CITY);
+				put(EdgePosition.CENTER, TileFeature.CITY);
+				put(EdgePosition.RIGHT, TileFeature.CITY);
 			}}
 		);
 	}
@@ -75,21 +76,21 @@ public class TileTest {
 	public void testRotatedFeatures() throws Exception {
 		origin.rotateClockwise();
 		assertEquals(
-				origin.getEdge(Direction.EAST),
-				new ArrayList<TileFeature>() {{
-					add(TileFeature.CITY);
-					add(TileFeature.CITY);
-					add(TileFeature.CITY);
+				origin.getEdge(OldDirection.EAST),
+				new HashMap<EdgePosition, TileFeature>() {{
+					put(EdgePosition.LEFT, TileFeature.CITY);
+					put(EdgePosition.CENTER, TileFeature.CITY);
+					put(EdgePosition.RIGHT, TileFeature.CITY);
 				}}
 			);
 		origin.rotateCounterclockwise();
 		origin.rotateCounterclockwise();
 		assertEquals(
-				origin.getEdge(Direction.WEST),
-				new ArrayList<TileFeature>() {{
-					add(TileFeature.CITY);
-					add(TileFeature.CITY);
-					add(TileFeature.CITY);
+				origin.getEdge(OldDirection.WEST),
+				new HashMap<EdgePosition, TileFeature>() {{
+					put(EdgePosition.LEFT, TileFeature.CITY);
+					put(EdgePosition.CENTER, TileFeature.CITY);
+					put(EdgePosition.RIGHT, TileFeature.CITY);
 				}}
 			);
 	}
