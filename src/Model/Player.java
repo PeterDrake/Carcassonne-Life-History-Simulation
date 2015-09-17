@@ -10,7 +10,7 @@ public class Player {
 	 * Create a new Player
 	 * @param name
 	 */
-	public Player(String name, int ID) {
+	public Player(String name) {
 		this.name = name;
 		playerScore = 0;
 		// initialize followers

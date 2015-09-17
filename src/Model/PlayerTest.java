@@ -6,18 +6,30 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PlayerTest {
-
+	private Player testPlayer;
+	
 	@Before
 	public void setUp() throws Exception {
+		this.testPlayer = new Player("Anonymous");
 	}
 
 	@Test
-	public void test() {
-		Player testPlayer = new Player("Anonymous", 1);
+	public void testScore() {
 		assertEquals(testPlayer.getScore(), 0);
-		assertEquals(testPlayer.getFollowers(), 7);
-		assertTrue(testPlayer.getName().equals("Anonymous"));
-		assertEquals(testPlayer.getID(), 1);
+		testPlayer.addScore(5);
+		assertEquals(testPlayer.getScore(), 5);
+	}
+	
+	@Test
+	public void testName() {
+		assertEquals(testPlayer.getName(), "Anonymous");
+		testPlayer.changeName("Anon");
+		assertEquals(testPlayer.getName(), "Anon");
 	}
 
+	@Test
+	public void testFollower() {
+		assertNotNull(testPlayer.availableFollower());
+	}
+	
 }
