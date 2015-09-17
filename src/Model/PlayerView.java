@@ -10,13 +10,13 @@ public class PlayerView extends JPanel{
 	private JLabel score;
 	private JLabel followerCount;
 
-	
-//	private Rectangle size = panel.getBounds();
+
 	int h = 50;
 	int w = (Carcassonne.WIDTH / 6);
-//	
-//	private double boxWidth = w/6 - 35;
-	
+
+	/** Constructor of PlayerView;
+	 * takes in player name, score, follower count
+	 */
 	public PlayerView(String playerName, int s, int fc)
 	{
 

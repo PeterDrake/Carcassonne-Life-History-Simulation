@@ -57,10 +57,12 @@ public class Carcassonne extends JFrame implements MouseListener {
         setTitle("Carcassonne - The bitchinest game in all of christendom.");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
-        //setUndecorated(true); // Get rid of that pesky top bar
+//        setUndecorated(true); // Get rid of that pesky top bar
 
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-
+//        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setLayout(new GridBagLayout()); //Changed view to Gridbag
+        GridBagConstraints c = new GridBagConstraints();
+        
         setFocusable(true);
         setBackground(Color.BLUE);
         setLocationRelativeTo(null); // Open our window in the center of the display
@@ -68,11 +70,31 @@ public class Carcassonne extends JFrame implements MouseListener {
 
         getContentPane().removeAll();   // Start from scratch
         gameView = new CarcassonneView();
-        add(gameView);
+        
+        c.ipadx = WIDTH;
+        c.ipady = HEIGHT  - 100;
+//        c.anchor = GridBagConstraints.NORTH;
+//        c.fill = GridBagConstraints.HORIZONTAL;
+//        c.gridx = 0;
+//        c.gridy = 0;
+        c.gridheight = HEIGHT - 200;
+//        c.gridwidth = WIDTH;
+        add(gameView, c);
+        
+        JPanel playerPanel = new JPanel();
+        playerPanel.setLayout(new GridLayout(1, 6));
+        playerPanel.setSize(Carcassonne.WIDTH, 200);
+
+        c.ipady = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.anchor = GridBagConstraints.SOUTH;
+        add(playerPanel, c);
         
 
         playerView = new PlayerView("Arthur Testingson", 12, 3);
-        add(playerView); 
+
+        playerPanel.add(playerView);
         
         setVisible(true);
     }
@@ -82,6 +104,9 @@ public class Carcassonne extends JFrame implements MouseListener {
      */
     private void run(){
 
+    	 gameView = new CarcassonneView();
+
+    	
         runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
