@@ -20,8 +20,6 @@ public class Deck {
 	public Deck() {
 		int i = 0;
 
-		// TODO: Upgrade to new Tile features abstraction
-
 		// 2 crossCityShield in game
         for (i = 0; i < 2; i++) {
             tiles.add(new Tile(
@@ -379,7 +377,7 @@ public class Deck {
                         add(new ArrayList<FeaturePosition>() {{
                             add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
                             add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
-=                        }});
+                        }});
                         add(new ArrayList<FeaturePosition>() {{
                             add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
                             add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
@@ -689,7 +687,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon(Math.uniform() > 0.5 ? "tile6.png" : "tile25.png").getImage(),
+                    new ImageIcon(Math.random() > 0.5 ? "tile6.png" : "tile25.png").getImage(),
                     false,
                     false));
 		}
@@ -723,7 +721,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon(Math.uniform() > 0.5 ? "tile13.png" : "tile20.png").getImage(),
+                    new ImageIcon(Math.random() > 0.5 ? "tile13.png" : "tile20.png").getImage(),
                     false,
                     false));
 
