@@ -76,6 +76,7 @@ public class Carcassonne extends JFrame implements MouseListener {
 
         getContentPane().removeAll();   // Start from scratch
         gameView = new CarcassonneView();
+        playahs = gameView.getPlayers();
 
         c.ipadx = WIDTH;
         c.ipady = HEIGHT  - 100;
@@ -86,16 +87,22 @@ public class Carcassonne extends JFrame implements MouseListener {
         playerPanel.setSize(Carcassonne.WIDTH, 200);
 
         c.ipady = 0;
+        c.ipadx = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.anchor = GridBagConstraints.SOUTH;
         add(playerPanel, c);
 
-        playahs = gameView.getPlayers();
+
         for (int i = 0; i < playahs; i++){
-        	playerView = new PlayerView("Arthur Testingson the " + Integer.toString(i), 12, 3);
+        	Player currentPlayer = gameView.game.players.get(i);
+        	playerView = new PlayerView(currentPlayer);
         	playerPanel.add(playerView);
         }
+       gameView.game.players.get(1).addScore(12);
+       revalidate();
+       repaint();
+
 
         setVisible(true);
 
@@ -115,6 +122,7 @@ public class Carcassonne extends JFrame implements MouseListener {
 //        playerFrame.setLayout(null);
 ////        add(playerFrame);
 //        playerFrame.repaint();
+
 
 
 
