@@ -84,11 +84,11 @@ public class Carcassonne extends JFrame implements MouseListener {
         playerPanel.setLayout(new GridLayout(1, 6));
         playerPanel.setSize(Carcassonne.WIDTH, 200);
 
-        c.ipady = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.anchor = GridBagConstraints.SOUTH;
-        add(playerPanel, c);
+//        c.ipady = 0;
+//        c.fill = GridBagConstraints.HORIZONTAL;
+//        c.gridx = 0;
+//        c.anchor = GridBagConstraints.SOUTH;
+//        add(playerPanel, c);
         
 
         playerView = new PlayerView("Arthur Testingson", 12, 3);
