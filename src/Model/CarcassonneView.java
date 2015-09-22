@@ -13,7 +13,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	public static final int TILE_SIZE_NOMINAL = 100;
 
-	private CarcassonneModel game;
+	public CarcassonneModel game;
 
     /**
      * The starting tile, used for continuously redrawing the board.
