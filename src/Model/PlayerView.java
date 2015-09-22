@@ -6,9 +6,11 @@ import java.awt.*;
 
 public class PlayerView extends JPanel{
 	
-	private JLabel name;
+//	private JLabel name;
+	private JTextField name;
 	private JLabel score;
 	private JLabel followerCount;
+	private JButton saveName;
 
 
 	int h = 50;
@@ -17,15 +19,17 @@ public class PlayerView extends JPanel{
 	/** Constructor of PlayerView;
 	 * takes in player name, score, follower count
 	 */
-	public PlayerView(String playerName, int s, int fc)
+	public PlayerView(int s, int fc)
 	{
 
-		setLayout(new GridLayout(3,1));
+		setLayout(new GridLayout(3,2));
 		setSize(w, h);
 		setBackground(Color.GRAY);
 		
-		name = new JLabel(playerName);
+		name = new JTextField();		
+//		name = new JLabel(playerName);
 		add(name, 0,0);
+		
 		
 		score = new JLabel("Score: " + Integer.toString(s));
 		add(score, 0,1);
