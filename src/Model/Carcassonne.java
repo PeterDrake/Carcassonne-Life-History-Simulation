@@ -85,20 +85,14 @@ public class Carcassonne extends JFrame implements MouseListener {
         playerPanel.setLayout(new GridLayout(1, 6));
         playerPanel.setSize(Carcassonne.WIDTH, 200);
 
-<<<<<<< HEAD
+
         c.ipady = 0;
         c.ipadx = 5;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.anchor = GridBagConstraints.SOUTH;
         add(playerPanel, c);
-=======
-//        c.ipady = 0;
-//        c.fill = GridBagConstraints.HORIZONTAL;
-//        c.gridx = 0;
-//        c.anchor = GridBagConstraints.SOUTH;
-//        add(playerPanel, c);
->>>>>>> playerP
+
         
         for (int i = 0; i < playahs; i++){
         	Player currentPlayer = gameView.game.players.get(i);
@@ -118,42 +112,14 @@ public class Carcassonne extends JFrame implements MouseListener {
      * Initializes the main game runloop, which is based on a JavaX Swing Timer running at ~50 fps (20 ms delay).
      */
     private void run(){
-<<<<<<< HEAD
-//        gameView = new CarcassonneView();
-//        add(gameView);
-//        playahs = gameView.getPlayers();
-//
-=======
+
 
         gameView = new CarcassonneView();
         add(gameView);
 
->>>>>>> playerP
-//        JPanel playerFrame = new JPanel();
-//        playerFrame.setSize(WIDTH, HEIGHT - 200);
-//        playerFrame.setBackground(Color.ORANGE);
-//        playerFrame.setLayout(null);
-<<<<<<< HEAD
-////        add(playerFrame);
-//        playerFrame.repaint();
 
 
 
-=======
-//        add(playerFrame);
-//        playerFrame.repaint();
-//
-//
-//
-////        playerView = new PlayerView("test");
-////        add(playerView);
-//
-//>>>>>>> master
-
-    	 gameView = new CarcassonneView();
-
-    	
->>>>>>> playerP
         runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
