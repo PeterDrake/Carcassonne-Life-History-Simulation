@@ -104,8 +104,6 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
             if (currentTile == null) break;
         }
 
-        System.out.println("We've broken " + i);
-
 
         // draw the image in the upper-left corner
 

@@ -94,6 +94,7 @@ public class Player {
 	 */
 	public void changeName(String newName) {
 		name = newName;
+		System.out.println(name);
 	}
 
 	/**
