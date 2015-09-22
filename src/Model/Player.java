@@ -7,7 +7,14 @@ import java.util.Stack;
 public class Player {
 
 	/**
-	 * Create a new Player
+	 * Create new player.
+	 */
+	public Player() {
+		this("NewPlayer");
+	}
+	
+	/**
+	 * Create a new Player with Name
 	 * @param name
 	 */
 	public Player(String name) {
