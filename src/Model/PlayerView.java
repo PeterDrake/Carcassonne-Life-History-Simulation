@@ -12,7 +12,7 @@ public class PlayerView extends JPanel{
 
 
 	int h = 50;
-	int w = (Carcassonne.WIDTH / 6);
+	int w = (Carcassonne.WIDTH / 100);
 
 	/** Constructor of PlayerView;
 	 * takes in player name, score, follower count
