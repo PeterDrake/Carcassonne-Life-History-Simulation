@@ -19,10 +19,11 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
         addMouseListener(this); // adds a mouseListener to the JPanel
 
         this.game = new CarcassonneModel();
-        
+
 		setBackground(java.awt.Color.BLACK);
 
         setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT-200);
+
 
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
@@ -31,6 +32,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
     /**
      * The main draw method for the CarcassonneView. This is called automatically by the runloop in Carcassonne.java
+     * PLEASE always paint to g2, which is a casted graphics2D object wrapped around the original g.
      * @param g the Graphics component. Called automatically by Super
      */
 	public void paintComponent(Graphics g) {
@@ -44,7 +46,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 		// draw the image in the upper-left corner
 
-		g.drawImage(image, 0, 0, null);
+		g2.drawImage(image, 0, 0, null);
 		// tile the image across the component
 	}
 
