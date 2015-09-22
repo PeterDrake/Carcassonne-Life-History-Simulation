@@ -19,7 +19,12 @@ public class PlayerView extends JPanel{
 	/** Constructor of PlayerView;
 	 * takes in player name, score, follower count
 	 */
+<<<<<<< HEAD
 	public PlayerView(Player currentPlayer)
+=======
+	public PlayerView(String playerName, int s, int fc)
+
+>>>>>>> playerP
 	{
 
 		setLayout(new GridLayout(3,2));
