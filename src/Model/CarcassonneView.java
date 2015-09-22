@@ -22,7 +22,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 		setBackground(java.awt.Color.BLACK);
 
-        setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT-200);
+        setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT - 200);
 
 
         setVisible(true);
@@ -40,6 +40,8 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		Graphics2D g2 = (Graphics2D) g;
 
 		Image image = this.game.startingTile.getImage();
+
+        //SETUP
 
 		int imageWidth = image.getWidth(this);
 		int imageHeight = image.getHeight(this);

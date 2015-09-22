@@ -54,7 +54,7 @@ public class Carcassonne extends JFrame implements MouseListener {
     }
 
     public Carcassonne() {
-        setTitle("Carcassonne - The bitchinest game in all of christendom.");
+        setTitle("Carcassonne - The keenest game in all of christendom.");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         //setUndecorated(true); // Get rid of that pesky top bar
