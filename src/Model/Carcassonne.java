@@ -57,17 +57,47 @@ public class Carcassonne extends JFrame implements MouseListener {
         setTitle("Carcassonne - The bitchinest game in all of christendom.");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
-        setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
 
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-
+//        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setLayout(new GridBagLayout()); //Changed view to Gridbag
+        GridBagConstraints c = new GridBagConstraints();
+        
         setFocusable(true);
         setBackground(Color.BLUE);
         setLocationRelativeTo(null); // Open our window in the center of the display
         addMouseListener(this); // We can receive mouse events like clicks
 
         getContentPane().removeAll();   // Start from scratch
+        gameView = new CarcassonneView();
+        
+        c.ipadx = WIDTH;
+        c.ipady = HEIGHT  - 100;
+//        c.anchor = GridBagConstraints.NORTH;
+//        c.fill = GridBagConstraints.HORIZONTAL;
+//        c.gridx = 0;
+//        c.gridy = 0;
+        c.gridheight = HEIGHT - 200;
+//        c.gridwidth = WIDTH;
+        add(gameView, c);
+        
+        JPanel playerPanel = new JPanel();
+        playerPanel.setLayout(new GridLayout(1, 6));
+        playerPanel.setSize(Carcassonne.WIDTH, 200);
+
+        c.ipady = 0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.anchor = GridBagConstraints.SOUTH;
+        add(playerPanel, c);
+        
+
+        playerView = new PlayerView("Arthur Testingson", 12, 3);
+
+        playerPanel.add(playerView);
+        
+        setVisible(true);
+      
     }
 
     /**
