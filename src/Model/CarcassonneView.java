@@ -18,6 +18,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 	public CarcassonneView() {
         addMouseListener(this); // adds a mouseListener to the JPanel
 
+
         this.game = new CarcassonneModel();
 
 		setBackground(java.awt.Color.BLACK);
@@ -87,4 +88,12 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
     public void mouseMoved(MouseEvent mouseEvent) {
         // handle mouse moves
     }
+
+	/**
+	 * @return the number of player in Carc model
+	 */
+	public int getPlayers() {
+		return game.players.size();
+	}
+
 }
