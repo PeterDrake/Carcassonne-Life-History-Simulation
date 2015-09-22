@@ -11,7 +11,7 @@ import javax.swing.*;
 
 public class CarcassonneView extends JPanel implements MouseListener, MouseMotionListener{
 
-	private CarcassonneModel game;
+	public CarcassonneModel game;
     /**
      * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
      */
