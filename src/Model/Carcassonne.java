@@ -93,7 +93,7 @@ public class Carcassonne extends JFrame implements MouseListener {
         
         playahs = gameView.getPlayers();
         for (int i = 0; i < playahs; i++){
-        	playerView = new PlayerView("Arthur Testingson", 12, 3);
+        	playerView = new PlayerView("Arthur Testingson the " + Integer.toString(i), 12, 3);
         	playerPanel.add(playerView);        	
         }
         
