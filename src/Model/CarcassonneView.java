@@ -11,7 +11,19 @@ import javax.swing.*;
 
 public class CarcassonneView extends JPanel implements MouseListener, MouseMotionListener{
 
+	public static final int TILE_SIZE_NOMINAL = 100;
+
 	private CarcassonneModel game;
+
+    /**
+     * The starting tile, used for continuously redrawing the board.
+     */
+    private static Tile startingTile;
+
+    /** The scaling of the images. Used for zooming */
+    private double scale = 0.93;
+
+
     /**
      * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
      */
@@ -20,6 +32,29 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 
         this.game = new CarcassonneModel();
+
+        startingTile = this.game.deck.pullTile();
+        Tile tile = startingTile;
+
+        int i = 0;
+        while (true) {
+            try {
+                Tile atile = this.game.deck.pullTile();
+                if (atile == null) break;
+
+                tile.setWest(atile);
+                tile = atile;
+
+                i++;
+
+            } catch (Exception exception) {
+                System.out.println(exception.getLocalizedMessage());
+                break;
+
+            }
+        }
+
+
 
 		setBackground(java.awt.Color.BLACK);
 
@@ -40,16 +75,41 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-		Image image = this.game.startingTile.getImage();
-
         //SETUP
+		int lastTileX = 0;
+		int lastTileY = 0;
+        Tile currentTile = startingTile;
 
-		int imageWidth = image.getWidth(this);
-		int imageHeight = image.getHeight(this);
+        int imageSize = (int)(TILE_SIZE_NOMINAL * scale);
 
-		// draw the image in the upper-left corner
+        int i = 0;
 
-		g2.drawImage(image, 0, 0, null);
+        while (true) {
+            if (lastTileX + imageSize > Carcassonne.WIDTH) {
+                lastTileX = 0;
+                lastTileY += imageSize;
+            }
+            g2.drawImage(currentTile.getImage(), lastTileX, lastTileY, imageSize, imageSize, null);
+            lastTileX += imageSize;
+            //lastTileY += imageSize;
+
+            if (currentTile.getImage() == null){
+                System.out.printf("FUCK THIS TILE: "+currentTile);
+            }
+
+            currentTile = currentTile.getWest();
+
+            i++;
+
+            if (currentTile == null) break;
+        }
+
+        System.out.println("We've broken " + i);
+
+
+        // draw the image in the upper-left corner
+
+		//g2.drawImage(image, 0, 0, null);
 		// tile the image across the component
 	}
 

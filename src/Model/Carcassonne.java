@@ -19,10 +19,10 @@ public class Carcassonne extends JFrame implements MouseListener {
 
     /** The absence of player panel */
     PlayerView playerView;
-    
+
     /**Number of players*/
     int playahs;
-    
+
     /** the player panel*/
     JPanel playerPanel = new JPanel();
 
@@ -68,7 +68,7 @@ public class Carcassonne extends JFrame implements MouseListener {
         //start player panels//
         setLayout(new GridBagLayout()); //Changed view to Gridbag
         GridBagConstraints c = new GridBagConstraints();
-        
+
         setFocusable(true);
         setBackground(Color.BLUE);
         setLocationRelativeTo(null); // Open our window in the center of the display
@@ -76,12 +76,12 @@ public class Carcassonne extends JFrame implements MouseListener {
 
         getContentPane().removeAll();   // Start from scratch
         gameView = new CarcassonneView();
-        
+
         c.ipadx = WIDTH;
         c.ipady = HEIGHT  - 100;
         c.gridheight = HEIGHT - 200;
         add(gameView, c);
-        
+
         playerPanel.setLayout(new GridLayout(1, 6));
         playerPanel.setSize(Carcassonne.WIDTH, 200);
 
@@ -90,15 +90,15 @@ public class Carcassonne extends JFrame implements MouseListener {
         c.gridx = 0;
         c.anchor = GridBagConstraints.SOUTH;
         add(playerPanel, c);
-        
+
         playahs = gameView.getPlayers();
         for (int i = 0; i < playahs; i++){
         	playerView = new PlayerView("Arthur Testingson the " + Integer.toString(i), 12, 3);
-        	playerPanel.add(playerView);        	
+        	playerPanel.add(playerView);
         }
-        
+
         setVisible(true);
-      
+
     }
 
     /**
@@ -118,7 +118,7 @@ public class Carcassonne extends JFrame implements MouseListener {
 
 
 
-        runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
+        runLoop = new Timer(2000, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 frameCycle();

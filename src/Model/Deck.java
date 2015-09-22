@@ -49,7 +49,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon("tile22.png").getImage(),
+                    new ImageIcon("img/TileImages/tile22.png").getImage(),
                     false,
                     true));
         }
@@ -82,7 +82,7 @@ public class Deck {
                         add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
                     }});
                 }},
-                new ImageIcon("tile23.png").getImage(),
+                new ImageIcon("img/TileImages/tile23.png").getImage(),
                 false,
                 false));
 
@@ -114,7 +114,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon("tile26.png").getImage(),
+                    new ImageIcon("img/TileImages/tile26.png").getImage(),
                     false,
                     false));
         }
@@ -145,7 +145,7 @@ public class Deck {
                         add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
                     }});
                 }},
-                new ImageIcon("tile10.png").getImage(),
+                new ImageIcon("img/TileImages/tile10.png").getImage(),
                 false,
                 true));
 
@@ -180,7 +180,7 @@ public class Deck {
                         add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
                     }});
                 }},
-                new ImageIcon("tile4.png").getImage(),
+                new ImageIcon("img/TileImages/tile4.png").getImage(),
                 false,
                 false));
 
@@ -217,7 +217,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
                         }});
                     }},
-                    new ImageIcon("tile2.png").getImage(),
+                    new ImageIcon("img/TileImages/tile2.png").getImage(),
                     false,
                     true));
 
@@ -246,7 +246,7 @@ public class Deck {
                 }},
                 // farms
                 null,
-                new ImageIcon("tile21.png").getImage(),
+                new ImageIcon("img/TileImages/tile21.png").getImage(),
                 false,
                 true));
 
@@ -280,7 +280,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
                         }});
                     }},
-                    new ImageIcon("tile19.png").getImage(),
+                    new ImageIcon("img/TileImages/tile19.png").getImage(),
                     false,
                     false));
         }
@@ -312,7 +312,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
                         }});
                     }},
-                    new ImageIcon("tile14.png").getImage(),
+                    new ImageIcon("img/TileImages/tile14.png").getImage(),
                     false,
                     false));
 
@@ -345,7 +345,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
                         }});
                     }},
-                    new ImageIcon("tile17.png").getImage(),
+                    new ImageIcon("img/TileImages/tile17.png").getImage(),
                     false,
                     true));
 
@@ -383,7 +383,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
                         }});
                     }},
-                    new ImageIcon("tile9.png").getImage(),
+                    new ImageIcon("img/TileImages/tile9.png").getImage(),
                     false,
                     false));
 
@@ -421,7 +421,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
                         }});
                     }},
-                    new ImageIcon("tile24.png").getImage(),
+                    new ImageIcon("img/TileImages/tile24.png").getImage(),
                     false,
                     true));
 
@@ -455,7 +455,7 @@ public class Deck {
                             }});
 
                     }},
-                    new ImageIcon("tile15.png").getImage(),
+                    new ImageIcon("img/TileImages/tile15.png").getImage(),
                     false,
                     false));
 
@@ -493,7 +493,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
                         }});
                     }},
-                    new ImageIcon("tile16.png").getImage(),
+                    new ImageIcon("img/TileImages/tile16.png").getImage(),
                     false,
                     false));
 
@@ -537,7 +537,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
                         }});
                     }},
-                    new ImageIcon("tile27.png").getImage(),
+                    new ImageIcon("img/TileImages/tile27.png").getImage(),
                     false,
                     false));
 
@@ -577,7 +577,7 @@ public class Deck {
                         }});
 
                     }},
-                    new ImageIcon("tile11.png").getImage(),
+                    new ImageIcon("img/TileImages/tile11.png").getImage(),
                     false,
                     false));
 
@@ -617,7 +617,7 @@ public class Deck {
                         }});
 
                     }},
-                    new ImageIcon("tile8.png").getImage(),
+                    new ImageIcon("img/TileImages/tile8.png").getImage(),
                     false,
                     false));
 
@@ -652,7 +652,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
                         }});
                     }},
-                    new ImageIcon("tile18.png").getImage(),
+                    new ImageIcon("img/TileImages/tile18.png").getImage(),
                     false,
                     false));
 
@@ -687,7 +687,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon(Math.random() > 0.5 ? "tile6.png" : "tile25.png").getImage(),
+                    new ImageIcon(Math.random() > 0.5 ? "img/TileImages/tile6.png" : "img/TileImages/tile25.png").getImage(),
                     false,
                     false));
 		}
@@ -721,7 +721,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon(Math.random() > 0.5 ? "tile13.png" : "tile20.png").getImage(),
+                    new ImageIcon(Math.random() > 0.5 ? "img/TileImages/tile13.png" : "img/TileImages/tile20.png").getImage(),
                     false,
                     false));
 
@@ -762,7 +762,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon("tile5.png").getImage(),
+                    new ImageIcon("img/TileImages/tile5.png").getImage(),
                     false,
                     false));
 
@@ -806,7 +806,7 @@ public class Deck {
                         add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
                     }});
                 }},
-                new ImageIcon("tile7.png").getImage(),
+                new ImageIcon("img/TileImages/tile7.png").getImage(),
                 false,
                 false));
 
@@ -839,7 +839,7 @@ public class Deck {
 
                         }});
                     }},
-                    new ImageIcon("tile3.png").getImage(),
+                    new ImageIcon("img/TileImages/tile3.png").getImage(),
                     true,
                     false));
 		}
@@ -869,7 +869,7 @@ public class Deck {
 
                         }});
                     }},
-                    new ImageIcon("tile1.png").getImage(),
+                    new ImageIcon("img/TileImages/tile1.png").getImage(),
                     true,
                     false));
 
@@ -897,6 +897,7 @@ public class Deck {
 	 * @return a random Tile
 	 */
 	public Tile pullTile() {
+        if (count() == 0) return null;
 		return tiles.remove(0);
 	}
 
