@@ -144,4 +144,44 @@ public class TileTest {
         assertEquals(centerTile, northTile.getSouth());
     }
 
+
+	private Tile tester;
+	protected static Image baseImage = new ImageIcon("img/startingtile.png").getImage();
+	protected static Tile testerTile() {
+		return new Tile(
+				// roads
+				new ArrayList<ArrayList<FeaturePosition>>() {{
+					add(new ArrayList<FeaturePosition>() {{
+						add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
+						add(new FeaturePosition(Direction.EAST, EdgePosition.CENTER));
+					}});
+				}},
+				// cities
+				new ArrayList<ArrayList<FeaturePosition>>() {{
+					add(new ArrayList<FeaturePosition>() {{
+						add(new FeaturePosition(Direction.NORTH, EdgePosition.LEFT));
+						add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
+						add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
+					}});
+				}},
+				// farms
+				new ArrayList<ArrayList<FeaturePosition>>() {{
+					add(new ArrayList<FeaturePosition>() {{
+						add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
+						add(new FeaturePosition(Direction.EAST, EdgePosition.LEFT));
+					}});
+					add(new ArrayList<FeaturePosition>() {{
+						add(new FeaturePosition(Direction.EAST, EdgePosition.RIGHT));
+						add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
+						add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
+						add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
+						add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
+					}});
+				}},
+				baseImage,
+				false,
+				false);
+	}
+
+
 }

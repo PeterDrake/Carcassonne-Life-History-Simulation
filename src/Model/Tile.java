@@ -65,6 +65,9 @@ public class Tile {
 	/** - City Shield */
 	private Boolean cityShield;
 
+	/** Follower Detection*/
+	private Boolean hasFollower;
+
 
 	/**
 	 * Create a new Tile.
@@ -97,6 +100,7 @@ public class Tile {
 		this.cloister = cloister;
 		this.cityShield = cityShield;
 		this.rotation = 0;
+		this.hasFollower = false;
 	}
 
 	/**
@@ -277,5 +281,16 @@ public class Tile {
 				
 		return edgeFeatures;
 	}
+
+	/** Follower Stuff */
+
+	void setFollower() {
+		this.hasFollower = true;
+	}
+
+	public boolean getFollower() {
+		return hasFollower;
+	}
+
 
 }

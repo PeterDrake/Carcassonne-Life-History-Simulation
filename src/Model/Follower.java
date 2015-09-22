@@ -6,7 +6,8 @@ package Model;
  */
 public class Follower {
 	private Tile tile;
-	private Integer position;
+
+
 	
 	/**
 	 * Create new Follower. Has no parameters.
@@ -18,11 +19,14 @@ public class Follower {
 	/**
 	 * Place this follower on a tile
 	 * @param tile the tile to place this follower on
-	 * @param position the position on Tile to place the follower on
+
 	 */
-	public void placeOnTile(Tile tile, Integer position) {
-		this.tile = tile;
-		this.position = position;
+	public void placeOnTile(Tile tile) {
+		if(tile.getFollower() == false) {
+			this.tile = tile;
+			tile.setFollower();
+		}
+		//TODO: throw exception/error in else statement
 	}
 	
 	/**

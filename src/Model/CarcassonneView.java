@@ -83,6 +83,14 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 		g.drawImage(image, 0, 0, null);
 		// tile the image across the component
+
+		//need to be able to draw followers on tiles squares?
+		if () {
+			g.setColor(Color.orange);
+			//need to get x and y of tile
+			g2.draw(new Rectangle2D.Double(x, y, 5, 5));
+		}
+
 	}
 
 
