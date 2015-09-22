@@ -9,15 +9,13 @@ public class Player {
 	/**
 	 * Create a new Player
 	 * @param name
-	 * @param ID
 	 */
-	public Player(String name, int ID) {
+	public Player(String name) {
 		this.name = name;
-		this.ID = ID;
 		playerScore = 0;
 		// initialize followers
 		this.followers = new ArrayList<Follower>();
-		for (int i = 0; i < followerCount; i++) {
+		for (int i = 0; i < FOLLOWER_COUNT; i++) {
 			this.followers.add(new Follower());
 		}
 	}
@@ -25,19 +23,17 @@ public class Player {
 	/**
 	 * Fields
 	 */
+	/** player's score */
 	private Integer playerScore;
 	
-	// Player starts with 7 available followers to place
-	private static final Integer followerCount = 7;
+	/** How many followers each player gets (not incl. the scoring token) */
+	public static final Integer FOLLOWER_COUNT = 7;
 	
-	// Our followers
+	/** Player's followers */
 	private ArrayList<Follower> followers;
 	
+	/** Player's name */
 	private String name;
-	// Gives the player an ID number for their followers to be known by. Will
-	// also be used for turn order, most likely.
-	private Integer ID;
-
 	
 	/**
 	 * Follower Methods
@@ -94,27 +90,11 @@ public class Player {
 	}
 
 	/**
-	 * Change Player's UID. Shouldn't ever be used?
-	 * @param number
-	 */
-	public void changeID(int number) {
-		ID = number;
-	}
-
-	/**
 	 * Get Player's current score
 	 * @return the player's numeric score
 	 */
 	public int getScore() {
 		return playerScore;
-	}
-
-	/**
-	 * Get count of Player's Followers.
-	 * @return 
-	 */
-	public int getFollowers() {
-		return followerCount;
 	}
 
 	/**
@@ -124,13 +104,5 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-
-	/**
-	 * Linked to the conceptual player IDs. Note: what are these even for?
-	 * @return
-	 */
-	public int getID() {
-		return ID;
-	}
-
+	
 }

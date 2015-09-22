@@ -16,9 +16,9 @@ public class Carcassonne extends JFrame implements MouseListener {
 
     /** The main game model */
     CarcassonneView gameView;
-    
+
     /** Player Panel */
-    PlayerView playerView; 
+    PlayerView playerView;
 
     /** The main game timer loop */
     Timer runLoop;
@@ -57,7 +57,6 @@ public class Carcassonne extends JFrame implements MouseListener {
         setTitle("Carcassonne - The bitchinest game in all of christendom.");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
-//        setUndecorated(true); // Get rid of that pesky top bar
 
 //        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         setLayout(new GridBagLayout()); //Changed view to Gridbag
@@ -97,12 +96,30 @@ public class Carcassonne extends JFrame implements MouseListener {
         playerPanel.add(playerView);
         
         setVisible(true);
+
     }
 
     /**
      * Initializes the main game runloop, which is based on a JavaX Swing Timer running at ~50 fps (20 ms delay).
      */
     private void run(){
+
+        gameView = new CarcassonneView();
+        add(gameView);
+
+//        JPanel playerFrame = new JPanel();
+//        playerFrame.setSize(WIDTH, HEIGHT - 200);
+//        playerFrame.setBackground(Color.ORANGE);
+//        playerFrame.setLayout(null);
+//        add(playerFrame);
+//        playerFrame.repaint();
+//
+//
+//
+////        playerView = new PlayerView("test");
+////        add(playerView);
+//
+//>>>>>>> master
 
     	 gameView = new CarcassonneView();
 

@@ -21,8 +21,6 @@ import java.util.HashMap;
 public class Tile {
 
 	/** Private members to store tile features */
-	/** Edges */
-	private Integer[] edgeFeatures;
 	/** Rotation in counts of 90 degrees */
 	private Integer rotation;
 	/** Image, 256x256 PNG */
@@ -64,10 +62,6 @@ public class Tile {
 	/** Whether Tile has a cloister */
 	private boolean cloister;
 	
-	/** - Road End */
-	private Boolean roadObstruction;
-	/** - City Connects */
-	private Boolean cityConnects;
 	/** - City Shield */
 	private Boolean cityShield;
 
@@ -180,26 +174,20 @@ public class Tile {
 	}
 
 	/**
-	 * Get edge features.
 	 * 
-	 * @return
+	 * @return Whether this tile has a cloister
 	 */
-	public Integer getNorthFeature() {
-		return this.edgeFeatures[TileFeatureOld.NORTH + this.rotation];
+	public boolean hasCloister() {
+		return this.cloister;
 	}
-
-	public Integer getEastFeature() {
-		return this.edgeFeatures[TileFeatureOld.EAST + this.rotation];
+	/**
+	 * 
+	 * @return Whether this tile has a city shield
+	 */
+	public boolean hasCityShield() {
+		return this.cloister;
 	}
-
-	public Integer getSouthFeature() {
-		return this.edgeFeatures[TileFeatureOld.SOUTH + this.rotation];
-	}
-
-	public Integer getWestFeature() {
-		return this.edgeFeatures[TileFeatureOld.WEST + this.rotation];
-	}
-
+	
 	/**
 	 * 
 	 * @return this Tile's image representation
@@ -209,9 +197,9 @@ public class Tile {
 	}
 
 	/**
-	 * Returns the rotation in degrees.
+	 * Get the Tile's rotation
 	 * 
-	 * @return the rotation, Integer, in degrees
+	 * @return the Tile's rotation (clockwise) in multiples of 90 degrees
 	 */
 	public Integer getRotation() {
 		return rotation;
@@ -287,9 +275,6 @@ public class Tile {
 			}
 		}
 				
-		
-		// Note: edges have three features
-		
 		return edgeFeatures;
 	}
 
