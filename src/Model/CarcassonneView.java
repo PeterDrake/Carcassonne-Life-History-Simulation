@@ -22,12 +22,40 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 		this.deck = new Deck();
 		this.startingTile = new Tile(
-			new Integer[] { TileFeatureOld.CITY, TileFeatureOld.ROAD, TileFeatureOld.GRASS, TileFeatureOld.ROAD },
+			// roads
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.EAST, EdgePosition.CENTER));
+				}});
+			}},
+			// cities
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.LEFT));
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.NORTH, EdgePosition.RIGHT));
+				}});
+			}},
+			// farms
+			new ArrayList<ArrayList<FeaturePosition>>() {{
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.WEST, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.EAST, EdgePosition.LEFT));
+				}});
+				add(new ArrayList<FeaturePosition>() {{
+					add(new FeaturePosition(Direction.EAST, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.LEFT));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.CENTER));
+					add(new FeaturePosition(Direction.SOUTH, EdgePosition.RIGHT));
+					add(new FeaturePosition(Direction.WEST, EdgePosition.LEFT));
+				}});
+			}},
 			new ImageIcon("img/startingtile.png").getImage(),
-			false,
 			false,
 			false
 		);
+
 		setBackground(java.awt.Color.BLACK);
 
         setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT-200);
