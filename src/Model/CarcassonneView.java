@@ -11,12 +11,13 @@ import javax.swing.*;
 
 public class CarcassonneView extends JPanel implements MouseListener, MouseMotionListener{
 
-	private CarcassonneModel game;
+	public CarcassonneModel game;
     /**
      * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
      */
 	public CarcassonneView() {
         addMouseListener(this); // adds a mouseListener to the JPanel
+
 
         this.game = new CarcassonneModel();
 
@@ -27,7 +28,10 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
-        setLayout(null);
+
+//        setLayout(null);
+		// TODO: Set up players?
+
 	}
 
     /**
@@ -83,4 +87,12 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
     public void mouseMoved(MouseEvent mouseEvent) {
         // handle mouse moves
     }
+
+	/**
+	 * @return the number of player in Carc model
+	 */
+	public int getPlayers() {
+		return game.players.size();
+	}
+
 }

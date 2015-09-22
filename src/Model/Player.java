@@ -111,5 +111,12 @@ public class Player {
 	public String getName() {
 		return name;
 	}
+
+	/**
+	 * @return the followers
+	 */
+	public int getFollowers() {
+		return followers.size();
+	}
 	
 }
