@@ -278,24 +278,5 @@ public class Tile {
 				
 		return edgeFeatures;
 	}
-
-	public ArrayList<Tile> drawNeighbors(Graphics2D g2, ArrayList<Tile> drawnTiles, int posX, int posY) {
-		// starting with startingTile
-		if (!drawnTiles.contains(this)) {
-			// if we've haven't checked this tile before...
-			// add tile to drawn tiles list
-			drawnTiles.add(this);
-						
-			// draw the tile
-			g2.drawImage(this.image, posX, posY, 100, 100, null);
-			
-			// recurse!
-			if (this.getNorth() != null) drawnTiles = this.getNorth().drawNeighbors(g2, drawnTiles, posX, posY - 100);
-			if (this.getEast()  != null) drawnTiles = this.getEast().drawNeighbors(g2, drawnTiles, posX + 100, posY);
-			if (this.getSouth() != null) drawnTiles = this.getSouth().drawNeighbors(g2, drawnTiles, posX, posY + 100);
-			if (this.getWest()  != null) drawnTiles = this.getWest().drawNeighbors(g2, drawnTiles, posX - 100, posY);
-		}
-		return drawnTiles;
-	}
-
+	
 }

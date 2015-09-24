@@ -6,6 +6,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -16,14 +18,11 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	public CarcassonneModel game;
 
-    /** a HashMap of Tile and Point objects used for tracking location and mouseEvents */
-    public HashMap<Tile, Point> gameBoard = new HashMap<Tile, Point>();
+	/**
+	 * a HashMap of Tile and Point objects used for tracking location and mouseEvents
+	 */
+	public HashMap<Tile, Point> gameBoard = new HashMap<Tile, Point>();
 
-    /** The nominal width and height of a tile, before scaling */
-    public static final int TILE_WIDTH_NOMINAL = 100;
-
-    /** The scale factor for the tile size */
-    public double scale = 1.0;
 
     /**
      * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
@@ -32,6 +31,14 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
         addMouseListener(this); // adds a mouseListener to the JPanel
 
         this.game = new CarcassonneModel();
+        this.gameBoard = new HashMap<Tile, Point>();
+        this.gameBoard.put(
+        	this.game.startingTile,
+			new Point(
+				(Carcassonne.WIDTH/2) - (Carcassonne.TILE_WIDTH_NOMINAL/2),
+				(Carcassonne.HEIGHT/2) - (Carcassonne.TILE_WIDTH_NOMINAL/2)
+			)
+        );
 
 		setBackground(java.awt.Color.BLACK);
         setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT - 200);
@@ -51,13 +58,17 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-		Tile startingTile = this.game.startingTile;
-		/** keep track of tiles we've already drawn */
-		ArrayList<Tile> drawnTiles = new ArrayList<Tile>();
+		this.drawTiles(g2);
+	}
 
-		// draw all the tiles, bro
-		drawnTiles = startingTile.drawNeighbors(g2, drawnTiles, Carcassonne.WIDTH/2 - 50, Carcassonne.HEIGHT/2 - 50);
-//		drawnTiles = startingTile.drawNeighbors(g2, drawnTiles, 0, Carcassonne.HEIGHT/2 - 50);
+	private void drawTiles(Graphics2D g2) {
+		for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
+			Tile tile = tileSet.getKey();
+			Point position = tileSet.getValue();
+
+			// draw the tile
+			g2.drawImage(tile.getImage(), position.x, position.y, TILE_WIDTH_NOMINAL, TILE_WIDTH_NOMINAL, null);
+		}
 	}
 
     public Tile getTileAtPoint(Point point){
