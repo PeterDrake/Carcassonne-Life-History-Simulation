@@ -125,8 +125,14 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent) {
-		getTileAtPoint(mouseEvent.getPoint());
         System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
+        System.out.println("Unplayed tiles remaining: " + this.game.deck.count());
+        
+		Tile placedTile = this.game.deck.pullTile();
+		if (placedTile != null) {
+			this.gameBoard.put(placedTile, new Point(mouseEvent.getX(), mouseEvent.getY()));
+			repaint();
+		}
 	}
 
 	@Override
