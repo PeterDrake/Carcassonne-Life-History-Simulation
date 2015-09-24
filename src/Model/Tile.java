@@ -9,6 +9,7 @@
 
 package Model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.List;
@@ -20,7 +21,6 @@ import java.util.HashMap;
  *
  */
 public class Tile {
-
 
 	/** Private members to store tile features */
 	/** Rotation in counts of 90 degrees */
@@ -67,6 +67,10 @@ public class Tile {
 	/** - City Shield */
 	private Boolean cityShield;
 
+	/** Follower Tracking */
+	private Boolean hasFollower;
+
+
 
 	/**
 	 * Create a new Tile.
@@ -99,6 +103,7 @@ public class Tile {
 		this.cloister = cloister;
 		this.cityShield = cityShield;
 		this.rotation = 0;
+		this.hasFollower = false;
 	}
 
 	/**
@@ -278,6 +283,16 @@ public class Tile {
 		}
 
 		return edgeFeatures;
+	}
+
+	/**Follower Logic*/
+
+	public boolean getFollower() {
+		return hasFollower;
+	}
+
+	public void setFollower() {
+		hasFollower = true;
 	}
 
 }

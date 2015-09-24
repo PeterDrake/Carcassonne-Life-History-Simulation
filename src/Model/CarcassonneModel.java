@@ -63,14 +63,7 @@ public class CarcassonneModel {
 			false,
 			false
 		);
-		// TODO: What's left?
-
-		Tile prevTile = startingTile;
-		for (Tile tempTile = this.deck.pullTile(); tempTile != null && this.deck.count() > 0; prevTile = tempTile) {
-			tempTile = this.deck.pullTile();
-			prevTile.setEast(tempTile);
-			tempTile.setWest(prevTile);
-		}
+		players.get(0).placeFollower(startingTile, TileFeatureOld.CITY);
 	}
 	
 	/**

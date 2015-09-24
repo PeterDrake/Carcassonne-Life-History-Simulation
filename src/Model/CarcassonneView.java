@@ -72,6 +72,13 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 			// draw the tile
 			g2.drawImage(tile.getImage(), position.x, position.y, TILE_WIDTH_NOMINAL, TILE_WIDTH_NOMINAL, null);
 		}
+		
+		// game over?
+		if (this.game.isGameOver()) {
+			g2.setColor(java.awt.Color.MAGENTA);
+			g2.setFont(new Font("Helvetica", 0, 72));
+			g2.drawString("Game Over", 300, 200);
+		}
 	}
 
 	/**
@@ -240,8 +247,14 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent) {
-		getTileAtPoint(mouseEvent.getPoint());
         System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
+        System.out.println("Unplayed tiles remaining: " + this.game.deck.count());
+        
+		Tile placedTile = this.game.deck.pullTile();
+		if (placedTile != null) {
+			this.gameBoard.put(placedTile, new Point(mouseEvent.getX(), mouseEvent.getY()));
+			repaint();
+		}
 	}
 
 	@Override
