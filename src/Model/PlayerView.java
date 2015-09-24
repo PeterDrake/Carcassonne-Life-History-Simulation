@@ -3,6 +3,8 @@ package Model;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PlayerView extends JPanel{
 	
@@ -11,6 +13,8 @@ public class PlayerView extends JPanel{
 	private JLabel score;
 	private JLabel followerCount;
 	private JButton saveName;
+	
+	private Player player;
 
 
 	int h = 50;
@@ -20,16 +24,21 @@ public class PlayerView extends JPanel{
 	 * takes in player name, score, follower count
 	 */
 
-	public PlayerView(Player currentPlayer)
-
-	{
+	public PlayerView(Player currentPlayer) {
+		
+		this.player = currentPlayer;
 
 		setLayout(new GridLayout(3,2));
 		setSize(w, h);
 		setBackground(Color.GRAY);
 		
-		name = new JTextField();		
+		name = new JTextField(player.getName());		
 //		name = new JLabel(playerName);
+		name.addKeyListener(new KeyAdapter(){
+		    public void keyTyped(KeyEvent evt){
+		          player.changeName(((JTextField)evt.getSource()).getText() + String.valueOf(evt.getKeyChar()));
+		    }
+		});
 		add(name, 0,0);
 		
 		

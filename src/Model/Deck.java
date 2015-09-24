@@ -893,6 +893,7 @@ public class Deck {
 	 * @return a random Tile
 	 */
 	public Tile pullTile() {
+        if (count() == 0) return null;
 		return tiles.remove(0);
 	}
 

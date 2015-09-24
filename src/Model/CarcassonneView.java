@@ -12,25 +12,21 @@ import javax.swing.*;
 public class CarcassonneView extends JPanel implements MouseListener, MouseMotionListener{
 
 	public CarcassonneModel game;
+
     /**
      * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
      */
 	public CarcassonneView() {
         addMouseListener(this); // adds a mouseListener to the JPanel
 
-
         this.game = new CarcassonneModel();
 
 		setBackground(java.awt.Color.BLACK);
-
-        setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT-200);
-
-
+        setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT - 200);
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
 
 //        setLayout(null);
-		// TODO: Set up players?
 
 	}
 

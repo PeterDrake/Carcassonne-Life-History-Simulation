@@ -22,7 +22,7 @@ public class Carcassonne extends JFrame implements MouseListener {
     
     /**Number of players*/
     int playahs;
-    
+
     /** the player panel*/
     JPanel playerPanel = new JPanel();
 
@@ -60,14 +60,14 @@ public class Carcassonne extends JFrame implements MouseListener {
     }
 
     public Carcassonne() {
-        setTitle("Carcassonne - The bitchinest game in all of christendom.");
+        setTitle("Carcassonne - The keenest game in all of christendom.");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
 
         //start player panels//
         setLayout(new GridBagLayout()); //Changed view to Gridbag
         GridBagConstraints c = new GridBagConstraints();
-        
+
         setFocusable(true);
         setBackground(Color.BLUE);
         setLocationRelativeTo(null); // Open our window in the center of the display
@@ -76,35 +76,32 @@ public class Carcassonne extends JFrame implements MouseListener {
         getContentPane().removeAll();   // Start from scratch
         gameView = new CarcassonneView();
         playahs = gameView.getPlayers();
-        
+
         c.ipadx = WIDTH;
         c.ipady = HEIGHT  - 100;
         c.gridheight = HEIGHT - 200;
         add(gameView, c);
-        
+
         playerPanel.setLayout(new GridLayout(1, 6));
         playerPanel.setSize(Carcassonne.WIDTH, 200);
 
-
         c.ipady = 0;
-        c.ipadx = 5;
+        c.ipadx = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.anchor = GridBagConstraints.SOUTH;
         add(playerPanel, c);
 
-        
         for (int i = 0; i < playahs; i++){
         	Player currentPlayer = gameView.game.players.get(i);
         	playerView = new PlayerView(currentPlayer);
-        	playerPanel.add(playerView);   
+        	playerPanel.add(playerView);
         }
        gameView.game.players.get(1).addScore(12);
        revalidate();
        repaint();
-       
 
-        setVisible(true);
+       setVisible(true);
 
     }
 
@@ -113,14 +110,10 @@ public class Carcassonne extends JFrame implements MouseListener {
      */
     private void run(){
 
-
         gameView = new CarcassonneView();
         add(gameView);
 
-
-
-
-        runLoop = new Timer(20, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
+        runLoop = new Timer(2000, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 frameCycle();
