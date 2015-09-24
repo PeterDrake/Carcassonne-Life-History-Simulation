@@ -70,6 +70,13 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 			// draw the tile
 			g2.drawImage(tile.getImage(), position.x, position.y, TILE_WIDTH_NOMINAL, TILE_WIDTH_NOMINAL, null);
 		}
+		
+		// game over?
+		if (this.game.isGameOver()) {
+			g2.setColor(java.awt.Color.MAGENTA);
+			g2.setFont(new Font("Helvetica", 0, 72));
+			g2.drawString("Game Over", 300, 200);
+		}
 	}
 
 	/**
