@@ -34,7 +34,7 @@ public class Player {
 	private Integer playerScore;
 	
 	/** How many followers each player gets (not incl. the scoring token) */
-	public static final Integer FOLLOWER_COUNT = 7;
+	public static Integer FOLLOWER_COUNT = 7;
 	
 	/** Player's followers */
 	private ArrayList<Follower> followers;
@@ -72,6 +72,7 @@ public class Player {
 		Follower follower = this.availableFollower();
 		if (follower != null) {
 			follower.placeOnTile(tile, position);
+			FOLLOWER_COUNT--;
 		}
 		return follower;
 	}

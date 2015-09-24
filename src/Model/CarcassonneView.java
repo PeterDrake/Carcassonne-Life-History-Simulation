@@ -94,7 +94,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
             //lastTileY += imageSize;
 
             if (currentTile.getImage() == null){
-                System.out.printf("FUCK THIS TILE: "+currentTile);
+//                System.out.printf("FUCK THIS TILE: "+currentTile);
             }
 
             currentTile = currentTile.getWest();

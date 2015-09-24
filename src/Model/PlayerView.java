@@ -45,10 +45,12 @@ public class PlayerView extends JPanel{
 		score = new JLabel("Score: " + Integer.toString(currentPlayer.getScore()));
 		add(score, 0,1);
 		
-		followerCount = new JLabel("Available meeple: " + Integer.toString(currentPlayer.getFollowers()));
+		followerCount = new JLabel("Available: " + Integer.toString(currentPlayer.getFollowers()));
 		add(followerCount, 0,2);
 		
+		JButton followerButton = new JButton("Place Follower");
 		
+		add(followerButton, 2, 2);
 	}
 
 }

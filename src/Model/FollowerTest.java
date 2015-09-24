@@ -25,5 +25,12 @@ public class FollowerTest {
 		assertEquals(tile, follower.getTile());
 		assertEquals(TileFeatureOld.CITY, follower.getPosition());
 	}
+	
+	@Test
+	public void testEighthMeeple(){
+		
+	}
+	
+	
 
 }
