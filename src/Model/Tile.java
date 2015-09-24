@@ -21,6 +21,7 @@ import java.util.HashMap;
  */
 public class Tile {
 
+
 	/** Private members to store tile features */
 	/** Rotation in counts of 90 degrees */
 	private Integer rotation;
@@ -50,7 +51,7 @@ public class Tile {
 	private ArrayList<ArrayList<FeaturePosition>> cities;
 	/** List of connected farm edges */
 	private ArrayList<ArrayList<FeaturePosition>> farms;
-		
+
 	// for the future
 	//	private HashMap<
 	//	TileFeature, ArrayList<
@@ -62,14 +63,14 @@ public class Tile {
 
 	/** Whether Tile has a cloister */
 	private boolean cloister;
-	
+
 	/** - City Shield */
 	private Boolean cityShield;
 
 
 	/**
 	 * Create a new Tile.
-	 * 
+	 *
 	 * @param roads
 	 * 		List of lists of EdgeFeatures which identify connected roads
 	 * @param cities
@@ -124,7 +125,7 @@ public class Tile {
 
 	/**
 	 * Gets the Tile's north neighbor
-	 * 
+	 *
 	 * @return the Tile's north neighbor
 	 */
 	public Tile getNorth() {
@@ -137,7 +138,7 @@ public class Tile {
 
 	/**
 	 * Gets the Tile's south neighbor
-	 * 
+	 *
 	 * @return the Tile's south neighbor
 	 */
 	public Tile getSouth() {
@@ -150,7 +151,7 @@ public class Tile {
 
 	/**
 	 * Gets the Tile's east neighbor
-	 * 
+	 *
 	 * @return the Tile's east neighbor
 	 */
 	public Tile getEast() {
@@ -163,7 +164,7 @@ public class Tile {
 
 	/**
 	 * Gets the Tile's west neighbor
-	 * 
+	 *
 	 * @return the Tile's west neighbor
 	 */
 	public Tile getWest() {
@@ -175,22 +176,22 @@ public class Tile {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return Whether this tile has a cloister
 	 */
 	public boolean hasCloister() {
 		return this.cloister;
 	}
 	/**
-	 * 
+	 *
 	 * @return Whether this tile has a city shield
 	 */
 	public boolean hasCityShield() {
 		return this.cloister;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return this Tile's image representation
 	 */
 	public Image getImage() {
@@ -199,7 +200,7 @@ public class Tile {
 
 	/**
 	 * Get the Tile's rotation
-	 * 
+	 *
 	 * @return the Tile's rotation (clockwise) in multiples of 90 degrees
 	 */
 	public Integer getRotation() {
@@ -209,7 +210,7 @@ public class Tile {
 	/**
 	 * Translates an absolute cardinal direction into a local relative direction
 	 * for the Tile's current rotation.
-	 * 
+	 *
 	 * @param originalDirection
 	 * @return
 	 */
@@ -239,7 +240,7 @@ public class Tile {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param edge
 	 *            cardinal Direction of edge to return
 	 * @return list of features along edge
@@ -248,12 +249,12 @@ public class Tile {
 		Direction localEdge = this.translateDirection(absoluteEdge);
 
 		HashMap<EdgePosition, TileFeature> edgeFeatures = new HashMap<EdgePosition, TileFeature>();
-		
+
 		// for each kind of edge feature
 		//	iterate through the feature maps
 		//	if the feature is on the edge we're checking
 		//		add the feature to the edge return
-		
+
 		for (ArrayList<FeaturePosition> cityGroup : this.cities) {
 			for (FeaturePosition cityPosition : cityGroup) {
 				if (cityPosition.direction == localEdge) {
@@ -271,12 +272,12 @@ public class Tile {
 		for (ArrayList<FeaturePosition> farmGroup : this.farms) {
 			for (FeaturePosition farmPosition : farmGroup) {
 				if (farmPosition.direction == localEdge) {
-					edgeFeatures.put(farmPosition.position, TileFeature.GRASS);					
+					edgeFeatures.put(farmPosition.position, TileFeature.GRASS);
 				}
 			}
 		}
-				
+
 		return edgeFeatures;
 	}
-	
+
 }
