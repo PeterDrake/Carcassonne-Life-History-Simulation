@@ -62,10 +62,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-		this.drawTiles(g2);
-	}
-
-	private void drawTiles(Graphics2D g2) {
+		// draw the game board tiles
 		for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
 			Tile tile = tileSet.getKey();
 			Point position = tileSet.getValue();
