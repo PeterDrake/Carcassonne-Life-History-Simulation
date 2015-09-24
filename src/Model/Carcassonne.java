@@ -63,7 +63,6 @@ public class Carcassonne extends JFrame implements MouseListener {
         setTitle("Carcassonne - The keenest game in all of christendom.");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
-        //setUndecorated(true); // Get rid of that pesky top bar
 
         //start player panels//
         setLayout(new GridBagLayout()); //Changed view to Gridbag
@@ -85,6 +84,7 @@ public class Carcassonne extends JFrame implements MouseListener {
 
         playerPanel.setLayout(new GridLayout(1, 6));
         playerPanel.setSize(Carcassonne.WIDTH, 200);
+
 
         c.ipady = 0;
         c.ipadx = 5;
@@ -112,16 +112,11 @@ public class Carcassonne extends JFrame implements MouseListener {
      * Initializes the main game runloop, which is based on a JavaX Swing Timer running at ~50 fps (20 ms delay).
      */
     private void run(){
-//        gameView = new CarcassonneView();
-//        add(gameView);
-//        playahs = gameView.getPlayers();
-//
-//        JPanel playerFrame = new JPanel();
-//        playerFrame.setSize(WIDTH, HEIGHT - 200);
-//        playerFrame.setBackground(Color.ORANGE);
-//        playerFrame.setLayout(null);
-////        add(playerFrame);
-//        playerFrame.repaint();
+
+
+        gameView = new CarcassonneView();
+       // add(gameView);
+
 
 
 
@@ -136,6 +131,7 @@ public class Carcassonne extends JFrame implements MouseListener {
         runLoop.start();
 
     }
+
 
     /**
      * A single frame cycle in the runtime loop. This is a dispatch method which evokes the input and render loops.
