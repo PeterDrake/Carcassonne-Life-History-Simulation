@@ -885,7 +885,7 @@ public class Deck {
 	 * @return Returns number of tiles remaining in the Deck
 	 */
 	public int count() {
-		return tiles.size();
+		return this.tiles.size();
 	}
 
 	/**
@@ -893,8 +893,8 @@ public class Deck {
 	 * @return a random Tile
 	 */
 	public Tile pullTile() {
-        if (count() == 0) return null;
-		return tiles.remove(0);
+        if (this.count() == 0) return null;
+		return this.tiles.remove(0);
 	}
 
 }
