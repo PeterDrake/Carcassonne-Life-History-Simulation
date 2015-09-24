@@ -23,6 +23,7 @@ public class Follower {
 	public void placeOnTile(Tile tile, Integer position) {
 		this.tile = tile;
 		this.position = position;
+		tile.setFollower();
 	}
 	
 	/**
