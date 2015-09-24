@@ -23,6 +23,10 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 	 */
 	public HashMap<Tile, Point> gameBoard = new HashMap<Tile, Point>();
 
+	public static final int TILE_WIDTH_NOMINAL = 100;
+
+	public double scale = 1.0;
+
 
     /**
      * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
@@ -35,8 +39,8 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
         this.gameBoard.put(
         	this.game.startingTile,
 			new Point(
-				(Carcassonne.WIDTH/2) - (Carcassonne.TILE_WIDTH_NOMINAL/2),
-				(Carcassonne.HEIGHT/2) - (Carcassonne.TILE_WIDTH_NOMINAL/2)
+				(Carcassonne.WIDTH/2) - (TILE_WIDTH_NOMINAL/2),
+				(Carcassonne.HEIGHT/2) - (TILE_WIDTH_NOMINAL/2)
 			)
         );
 
@@ -71,15 +75,29 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		}
 	}
 
+	/**
+	 * Gets and returns the Tile object which is under the Point point. Returns NULL if no tile is under the point.
+	 * @param point the Point to check against all tiles on the game board
+	 * @return the Tile object if point is contained within a Tile, otherwise null
+	 */
     public Tile getTileAtPoint(Point point){
         Iterator<Map.Entry<Tile, Point>> it = this.gameBoard.entrySet().iterator();
         while (it.hasNext()){
-
+			Map.Entry<Tile, Point> testEntry = it.next();
+			if (pointInTileRect(point, testEntry.getValue())){
+				return testEntry.getKey();
+			}
         }
 
         return null;
     }
 
+	/**
+	 * Tests whether the testPoint is in the tile rectangle defined by rectCorner and TILE_WIDTH_NOMINAL * size
+	 * @param testPoint the Point for testing
+	 * @param rectCorner the upper-left hand corner of the rectangle to hit test
+	 * @return	TRUE if testPoint is within the rectangle. FALSE otherwise
+	 */
     private boolean pointInTileRect(Point testPoint, Point rectCorner){
         int dx = rectCorner.x + (int)(TILE_WIDTH_NOMINAL * scale);
         int dy = rectCorner.y + (int)(TILE_WIDTH_NOMINAL * scale);
@@ -110,7 +128,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent) {
-
+		getTileAtPoint(mouseEvent.getPoint());
         System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
 	}
 
