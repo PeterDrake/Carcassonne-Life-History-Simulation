@@ -1,5 +1,7 @@
 package Model;
 
+import sun.awt.image.BufImgVolatileSurfaceManager;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -82,12 +84,125 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
         while (it.hasNext()){
 			Map.Entry<Tile, Point> testEntry = it.next();
 			if (pointInTileRect(point, testEntry.getValue())){
+				System.out.println("Clicked Tile " + testEntry.getKey());
 				return testEntry.getKey();
 			}
         }
 
         return null;
     }
+
+	/**
+	 * A class for grouping a Tile and a Direction, for tile placement
+	 * @param <Tile> the Tile object to place next to
+	 * @param <Direction> the Direction for next tile placement
+	 */
+	public class TileDirectionPair<Tile, Direction> {
+		public  Tile tile;
+		public  Direction cardinalDirection;
+
+		public TileDirectionPair() {
+
+		}
+
+		public TileDirectionPair(Tile tile, Direction cardinalDirection) {
+			this.tile = tile;
+			this.cardinalDirection = cardinalDirection;
+		}
+
+		public Tile getTile() {
+			return tile;
+		}
+
+		public void setTile(Tile tile) {
+			this.tile = tile;
+		}
+
+		public Direction getCardinalDirection() {
+			return cardinalDirection;
+		}
+
+		public void setCardinalDirection(Direction cardinalDirection) {
+			this.cardinalDirection = cardinalDirection;
+		}
+	}
+
+	/**
+	 * Gets and returns a TileDirectionPair object containing the closest Tile and the Direction to attach the new tile to
+	 * @param point the test Point
+	 * @return a TileDirectionPair object containing the closest Tile and Direction to attach new tile to
+	 * @throws Exception if there is an issue
+	 */
+	public TileDirectionPair getNearestTilePlacementToPoint(Point point) throws Exception {
+
+		TileDirectionPair retPair = new TileDirectionPair();
+
+		double closestDelta = 0;
+
+		Iterator<Map.Entry<Tile, Point>> it = this.gameBoard.entrySet().iterator();
+		while (it.hasNext()) {
+
+			// The Map Entry object for this iteration
+			Map.Entry<Tile, Point> testEntry = it.next();
+
+			if (pointInTileRect(point, testEntry.getValue())) {
+				// We're actually inside a tile! Lets find out what corner they want it on
+				int dx = point.x - testEntry.getValue().x;
+				int dy = point.y - testEntry.getValue().y;
+
+				// We've found the differences
+				int minDiff = dx < dy ? dx : dy;
+
+				if (minDiff > (TILE_WIDTH_NOMINAL * scale) / 2) {	// The point is closer to either the SOUTH or WEST sides
+					retPair.setCardinalDirection(dx < dy ? Direction.WEST : Direction.SOUTH);
+				}	else {
+					retPair.setCardinalDirection(dx < dy ? Direction.EAST : Direction.NORTH);
+				}
+				retPair.setTile(testEntry.getKey());
+
+				return retPair;
+			}
+
+			Direction dir = pointInColumn(point, testEntry.getValue());
+			if (dir == Direction.NO_DIRECTION) continue;
+
+
+			// Track the closest one
+			double delta = Math.abs(point.distance(testEntry.getValue()));
+			if (delta < closestDelta) {
+				closestDelta = delta;
+				retPair.setCardinalDirection(dir);
+				retPair.setTile(testEntry.getKey());
+			}
+
+		}
+
+		return retPair;
+
+	}
+
+	/**
+	 * Returns the cardinal Direction if the point is paralell to one of the sides of the tile
+	 * @param testPoint the test point
+	 * @param rectCorner the upper-left hand corner of the test rectangle or tile to test against
+	 * @return the Direction value, or NO_DIRECTION
+	 */
+	private Direction pointInColumn(Point testPoint, Point rectCorner) {
+		// We'll assume we're not in the actual rectangle
+
+		if (testPoint.x >= rectCorner.x && testPoint.x <= rectCorner.x + (TILE_WIDTH_NOMINAL * scale)){
+			// We're in the vertical column. Lets determine if we're NORTH or SOUTH
+			return testPoint.y < rectCorner.y ? Direction.NORTH : Direction.SOUTH;
+		}
+
+		if (testPoint.y >= rectCorner.y && testPoint.y <= rectCorner.y + (TILE_WIDTH_NOMINAL * scale)) {
+			// We're in the horizontal column. Lets determine if we're EAST or WEST
+			return testPoint.x < rectCorner.x ? Direction.WEST : Direction.EAST;
+		}
+
+
+		return Direction.NO_DIRECTION;
+	}
 
 	/**
 	 * Tests whether the testPoint is in the tile rectangle defined by rectCorner and TILE_WIDTH_NOMINAL * size
