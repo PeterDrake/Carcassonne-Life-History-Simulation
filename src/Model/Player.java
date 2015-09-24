@@ -19,7 +19,7 @@ public class Player {
 	 */
 	public Player(String name) {
 		this.name = name;
-		playerScore = 0;
+		this.score = 0;
 		// initialize followers
 		this.followers = new ArrayList<Follower>();
 		for (int i = 0; i < FOLLOWER_COUNT; i++) {
@@ -31,7 +31,7 @@ public class Player {
 	 * Fields
 	 */
 	/** player's score */
-	private Integer playerScore;
+	private Integer score;
 	
 	/** How many followers each player gets (not incl. the scoring token) */
 	public static final Integer FOLLOWER_COUNT = 7;
@@ -85,7 +85,7 @@ public class Player {
 	 * @param score
 	 */
 	public void addScore(int score) {
-		playerScore = playerScore + score;
+		this.score = this.score + score;
 	}
 
 	/**
@@ -93,8 +93,7 @@ public class Player {
 	 * @param newName
 	 */
 	public void changeName(String newName) {
-		name = newName;
-		System.out.println(name);
+		this.name = newName;
 	}
 
 	/**
@@ -102,7 +101,7 @@ public class Player {
 	 * @return the player's numeric score
 	 */
 	public int getScore() {
-		return playerScore;
+		return this.score;
 	}
 
 	/**
@@ -110,14 +109,14 @@ public class Player {
 	 * @return the player's name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
 	 * @return the followers
 	 */
 	public int getFollowers() {
-		return followers.size();
+		return this.followers.size();
 	}
 	
 }
