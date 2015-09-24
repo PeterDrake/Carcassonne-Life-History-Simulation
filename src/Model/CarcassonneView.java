@@ -12,29 +12,22 @@ import javax.swing.*;
 public class CarcassonneView extends JPanel implements MouseListener, MouseMotionListener{
 
 	public CarcassonneModel game;
+
     /**
      * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
      */
 	public CarcassonneView() {
         addMouseListener(this); // adds a mouseListener to the JPanel
 
-
         this.game = new CarcassonneModel();
 
 		setBackground(java.awt.Color.BLACK);
-
-        setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT-200);
-
-
+        setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT - 200);
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
-<<<<<<< HEAD
-        setLayout(null);
-=======
+
 //        setLayout(null);
-		// TODO: Set up players?
-        
->>>>>>> playerP
+
 	}
 
     /**
@@ -46,15 +39,13 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-		Image image = this.game.startingTile.getImage();
-
-		int imageWidth = image.getWidth(this);
-		int imageHeight = image.getHeight(this);
-
-		// draw the image in the upper-left corner
-
-		g2.drawImage(image, 0, 0, null);
-		// tile the image across the component
+		Tile startingTile = this.game.startingTile;
+		/** keep track of tiles we've already drawn */
+		ArrayList<Tile> drawnTiles = new ArrayList<Tile>();
+		
+		// draw all the tiles, bro
+		drawnTiles = startingTile.drawNeighbors(g2, drawnTiles, Carcassonne.WIDTH/2 - 50, Carcassonne.HEIGHT/2 - 50);
+//		drawnTiles = startingTile.drawNeighbors(g2, drawnTiles, 0, Carcassonne.HEIGHT/2 - 50);
 	}
 
 
