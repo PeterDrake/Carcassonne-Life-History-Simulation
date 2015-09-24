@@ -19,7 +19,7 @@ public class Carcassonne extends JFrame implements MouseListener {
 
     /** The absence of player panel */
     PlayerView playerView;
-
+    
     /**Number of players*/
     int playahs;
 
@@ -85,14 +85,12 @@ public class Carcassonne extends JFrame implements MouseListener {
         playerPanel.setLayout(new GridLayout(1, 6));
         playerPanel.setSize(Carcassonne.WIDTH, 200);
 
-
         c.ipady = 0;
-        c.ipadx = 5;
+        c.ipadx = 0;
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.anchor = GridBagConstraints.SOUTH;
         add(playerPanel, c);
-
 
         for (int i = 0; i < playahs; i++){
         	Player currentPlayer = gameView.game.players.get(i);
@@ -103,8 +101,7 @@ public class Carcassonne extends JFrame implements MouseListener {
        revalidate();
        repaint();
 
-
-        setVisible(true);
+       setVisible(true);
 
     }
 
@@ -113,13 +110,8 @@ public class Carcassonne extends JFrame implements MouseListener {
      */
     private void run(){
 
-
         gameView = new CarcassonneView();
-       // add(gameView);
-
-
-
-
+        add(gameView);
 
         runLoop = new Timer(2000, new ActionListener() {    // This is a lamba closure, don't be conufesd here!!
             @Override

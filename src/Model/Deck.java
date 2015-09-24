@@ -687,7 +687,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.WEST, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon(Math.random() > 0.5 ? "img/TileImages/tile6.png" : "img/TileImages/tile25.png").getImage(),
+                    new ImageIcon("img/TileImages/" + (Math.random() > 0.5 ? "tile6.png" : "tile25.png")).getImage(),
                     false,
                     false));
 		}
@@ -721,7 +721,7 @@ public class Deck {
                             add(new FeaturePosition(Direction.NORTH, EdgePosition.CENTER));
                         }});
                     }},
-                    new ImageIcon(Math.random() > 0.5 ? "img/TileImages/tile13.png" : "img/TileImages/tile20.png").getImage(),
+                    new ImageIcon("img/TileImages/" + (Math.random() > 0.5 ? "tile13.png" : "tile20.png")).getImage(),
                     false,
                     false));
 
@@ -874,10 +874,6 @@ public class Deck {
                     false));
 
 		}
-
-        /*
-        JESUS F*CKING CHRIST. GODDAMNIT DAKOTA
-         */
 
 		// Aaaaand shuffle it up!
 		Collections.shuffle(this.tiles);

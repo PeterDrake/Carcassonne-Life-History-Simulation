@@ -11,18 +11,7 @@ import javax.swing.*;
 
 public class CarcassonneView extends JPanel implements MouseListener, MouseMotionListener{
 
-	public static final int TILE_SIZE_NOMINAL = 100;
-
 	public CarcassonneModel game;
-
-    /**
-     * The starting tile, used for continuously redrawing the board.
-     */
-    private static Tile startingTile;
-
-    /** The scaling of the images. Used for zooming */
-    private double scale = 0.93;
-
 
     /**
      * Instantiates a CarcassonneView object, creates a new Deck, and sets up the principle view window.
@@ -30,40 +19,15 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 	public CarcassonneView() {
         addMouseListener(this); // adds a mouseListener to the JPanel
 
-
         this.game = new CarcassonneModel();
 
-        startingTile = this.game.deck.pullTile();
-        Tile tile = startingTile;
-
-        int i = 0;
-        while (true) {
-            try {
-                Tile atile = this.game.deck.pullTile();
-                if (atile == null) break;
-
-                tile.setWest(atile);
-                tile = atile;
-
-                i++;
-
-            } catch (Exception exception) {
-                System.out.println(exception.getLocalizedMessage());
-                break;
-
-            }
-        }
-
-
-
 		setBackground(java.awt.Color.BLACK);
-
         setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT - 200);
-
-
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
-        setLayout(null);
+
+//        setLayout(null);
+
 	}
 
     /**
@@ -75,40 +39,13 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-        //SETUP
-		int lastTileX = 0;
-		int lastTileY = 0;
-        Tile currentTile = startingTile;
-
-        int imageSize = (int)(TILE_SIZE_NOMINAL * scale);
-
-        int i = 0;
-
-        while (true) {
-            if (lastTileX + imageSize > Carcassonne.WIDTH) {
-                lastTileX = 0;
-                lastTileY += imageSize;
-            }
-            g2.drawImage(currentTile.getImage(), lastTileX, lastTileY, imageSize, imageSize, null);
-            lastTileX += imageSize;
-            //lastTileY += imageSize;
-
-            if (currentTile.getImage() == null){
-                System.out.printf("FUCK THIS TILE: "+currentTile);
-            }
-
-            currentTile = currentTile.getWest();
-
-            i++;
-
-            if (currentTile == null) break;
-        }
-
-
-        // draw the image in the upper-left corner
-
-		//g2.drawImage(image, 0, 0, null);
-		// tile the image across the component
+		Tile startingTile = this.game.startingTile;
+		/** keep track of tiles we've already drawn */
+		ArrayList<Tile> drawnTiles = new ArrayList<Tile>();
+		
+		// draw all the tiles, bro
+		drawnTiles = startingTile.drawNeighbors(g2, drawnTiles, Carcassonne.WIDTH/2 - 50, Carcassonne.HEIGHT/2 - 50);
+//		drawnTiles = startingTile.drawNeighbors(g2, drawnTiles, 0, Carcassonne.HEIGHT/2 - 50);
 	}
 
 
