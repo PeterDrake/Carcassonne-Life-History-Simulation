@@ -63,6 +63,7 @@ public class CarcassonneModel {
 			false,
 			false
 		);
+		players.get(0).placeFollower(startingTile, TileFeatureOld.CITY);
 		// TODO: What's left?
 
 		Tile prevTile = startingTile;
