@@ -3,9 +3,7 @@ package Model;
 import sun.awt.image.BufImgVolatileSurfaceManager;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +23,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
     private Tile queuedTile;
     private Point queuedTilePoint = new Point(-1000, -1000);
+    private boolean shouldDisplayQueuedTile = false;
 
 
 	/**
@@ -64,6 +63,12 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
         queuedTile = this.game.deck.pullTile();
 
+        Timer t = new Timer(900, ae -> {    // This is a lamba closure, don't be conufesd here!!
+            shouldDisplayQueuedTile = true;
+        });
+        t.setRepeats(false);
+        t.start();
+
 	}
 
     /**
@@ -75,7 +80,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-        if (queuedTile != null){
+        if (shouldDisplayQueuedTile && queuedTile != null){
             g2.drawImage(queuedTile.getImage(), queuedTilePoint.x, queuedTilePoint.y, (int) (TILE_WIDTH_NOMINAL * scale), (int) (TILE_WIDTH_NOMINAL * scale), null);
         }
 
@@ -332,6 +337,12 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 	@Override
 	public void mouseReleased(MouseEvent mouseEvent) {
 		//System.out.println("A Mouse released");
+        Timer t = new Timer(650, ae -> {    // This is a lamba closure, don't be conufesd here!!
+            shouldDisplayQueuedTile = true;
+        });
+
+        t.setRepeats(false);
+        t.start();
 	}
 
 	@Override
@@ -345,6 +356,8 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 	public void mouseClicked(MouseEvent mouseEvent) {
         //System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
         System.out.println("Unplayed tiles remaining: " + this.game.deck.count());
+
+        shouldDisplayQueuedTile = false;
 
 		//Tile placedTile = this.game.deck.pullTile();
 		if (queuedTile != null) {
@@ -397,6 +410,8 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
     public void mouseDragged(MouseEvent mouseEvent) {
         // handle mouse drags
         if (clickPoint == null) return;
+
+        shouldDisplayQueuedTile = false;
 
         int deltaX = mouseEvent.getX() - clickPoint.x ;
         int deltaY = mouseEvent.getY() - clickPoint.y ;
