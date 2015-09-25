@@ -20,6 +20,9 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	public CarcassonneModel game;
 
+    /** The point of the first clickdown, for drag tracking */
+    private Point clickPoint;
+
 	/**
 	 * a HashMap of Tile and Point objects used for tracking location and mouseEvents
 	 */
@@ -35,6 +38,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
      */
 	public CarcassonneView() {
         addMouseListener(this); // adds a mouseListener to the JPanel
+        addMouseMotionListener(this);
 
         this.game = new CarcassonneModel();
         this.gameBoard = new HashMap<Tile, Point>();
@@ -46,8 +50,9 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 			)
         );
 
-		setBackground(java.awt.Color.BLACK);
+		setBackground(new java.awt.Color(200, 200, 200));
         setSize(Carcassonne.WIDTH, Carcassonne.HEIGHT - 200);
+        addButtons();
         setVisible(true);
         //setUndecorated(true); // Get rid of that pesky top bar
 
@@ -70,7 +75,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 			Point position = tileSet.getValue();
 
 			// draw the tile
-			g2.drawImage(tile.getImage(), position.x, position.y, TILE_WIDTH_NOMINAL, TILE_WIDTH_NOMINAL, null);
+			g2.drawImage(tile.getImage(), position.x, position.y, (int)(TILE_WIDTH_NOMINAL * scale), (int)(TILE_WIDTH_NOMINAL * scale), null);
 		}
 
 		// game over?
@@ -268,7 +273,48 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 		return point;
 	}
 
-	@Override
+    /**
+     * Logically connects the tiles together with the correct cardinal relationships. Tile manages rotation automatically.
+     *
+     * @param originalTile          the Tile which is already placed on the board
+     * @param placedTile            the Tile which is to be placed as a neighbor
+     * @param directionFromOriginal the cardinal Direction *of the original Tile* to attach the neighbor to
+     */
+    private void connectTiles(Tile originalTile, Tile placedTile, Direction directionFromOriginal) {
+        if (placedTile == null || originalTile == null) {
+            System.out.println("Error connecting tiles " + originalTile + " and " + placedTile);
+            return;
+        }
+
+        switch (directionFromOriginal) {
+            case NORTH:
+                originalTile.setNorth(placedTile);
+                placedTile.setSouth(originalTile);
+                break;
+            case SOUTH:
+                originalTile.setSouth(placedTile);
+                placedTile.setNorth(originalTile);
+                break;
+            case WEST:
+                originalTile.setWest(placedTile);
+                placedTile.setEast(originalTile);
+                break;
+            case EAST:
+                originalTile.setEast(placedTile);
+                placedTile.setWest(originalTile);
+                break;
+            case NO_DIRECTION:
+                break;
+
+            default:    // Something's gone wrong...
+                break;
+
+        }
+
+    }
+
+
+    @Override
 	public void mouseExited(MouseEvent mouseEvent) {
 		//System.out.println("A Mouse exited");
 	}
@@ -280,12 +326,14 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	@Override
 	public void mousePressed(MouseEvent mouseEvent) {
-		//System.out.println("A Mouse pressed");
-	}
+		System.out.println("A Mouse pressed");
+        clickPoint = mouseEvent.getPoint();
+
+    }
 
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent) {
-        System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
+        //System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
         System.out.println("Unplayed tiles remaining: " + this.game.deck.count());
 
 		Tile placedTile = this.game.deck.pullTile();
@@ -297,7 +345,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 				System.out.println(e);
 			}
 
-			System.out.println(nearestNeighbor.getCardinalDirection() + ", " + nearestNeighbor.getTile());
+			//System.out.println(nearestNeighbor.getCardinalDirection() + ", " + nearestNeighbor.getTile());
 
 			if (nearestNeighbor.getTile() == null) return; // Stupid way to check if nearestNeighbor is null, because it won't let me not initialize it
 
@@ -309,16 +357,22 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 					System.out.println(e);
 				}
 
-				System.out.println(placementPoint);
+				//System.out.println(placementPoint);
 
 				if (placementPoint.x == -1 && placementPoint.y == -1) return;
 
 
+                // Place the tile onto the game grid
 				this.gameBoard.put(placedTile, placementPoint);
+
+                // Connect the tiles together
+                connectTiles(nearestNeighbor.getTile(), placedTile, nearestNeighbor.getCardinalDirection());
 			}
 			repaint();
 		}
 	}
+
+
 
 	@Override
 	public void mouseEntered(MouseEvent mouseEvent) {
@@ -328,11 +382,83 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
         // handle mouse drags
+        if (clickPoint == null) return;
+
+        int deltaX = mouseEvent.getX() - clickPoint.x ;
+        int deltaY = mouseEvent.getY() - clickPoint.y ;
+
+        // change point of every tile
+        for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
+            Point position = tileSet.getValue();
+            position.x += deltaX;
+            position.y += deltaY;
+
+        }
+        clickPoint = mouseEvent.getPoint();
+        repaint();
     }
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         // handle mouse moves
+    }
+
+    /**
+     * Adds the buttons for zooming to the display, and sets up their actionlisteners
+     */
+    private void addButtons(){
+        JButton plusButton = new JButton("-");
+        plusButton.setLocation(20, 20);
+        plusButton.setPreferredSize(new Dimension(30, 30));
+
+        plusButton.addActionListener(ae -> {    // Please don't be confused by lambda closures
+                    scale -= 0.05;
+                    // change point of every tile
+                    for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
+                        Point position = tileSet.getValue();
+                        int deltax = (int)(position.x * 0.05);
+                        int deltay = (int)(position.y * 0.05);
+
+                        position.x *= 0.95;
+                        position.y *= 0.95;
+
+                        //position.x += deltax;
+                        //position.y += deltay;
+
+                    }
+                    repaint();
+                }
+        );
+
+        JButton minusButton = new JButton("+");
+        minusButton.setLocation(20, 30);
+        minusButton.setPreferredSize(new Dimension(30, 30));
+
+        minusButton.addActionListener(ae -> {
+                    scale += 0.05;
+
+                    // change point of every tile
+                    for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
+                        Point position = tileSet.getValue();
+
+                        int deltax = (int) (position.x * 0.05);
+                        int deltay = (int) (position.y * 0.05);
+
+                        position.x *= 1.05;
+                        position.y *= 1.05;
+
+                        //position.x -= deltax;
+                        //position.y -= deltay;
+
+
+                    }
+                    repaint();
+                }
+        );
+
+        add(plusButton);
+        add(minusButton);
+
     }
 
 	/**

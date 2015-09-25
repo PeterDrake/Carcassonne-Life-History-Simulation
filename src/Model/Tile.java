@@ -25,7 +25,7 @@ public class Tile {
 	/** Private members to store tile features */
 	/** Rotation in counts of 90 degrees */
 	private Integer rotation;
-	/** Image, 256x256 PNG */
+	/** Image, 1024x1024 PNG */
 	private Image image;
 
 	// //// Neighbors /////////
