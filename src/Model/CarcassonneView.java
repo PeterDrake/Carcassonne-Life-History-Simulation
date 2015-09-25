@@ -72,7 +72,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 			// draw the tile
 			g2.drawImage(tile.getImage(), position.x, position.y, TILE_WIDTH_NOMINAL, TILE_WIDTH_NOMINAL, null);
 		}
-		
+
 		// game over?
 		if (this.game.isGameOver()) {
 			g2.setColor(java.awt.Color.MAGENTA);
@@ -101,10 +101,8 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	/**
 	 * A class for grouping a Tile and a Direction, for tile placement
-	 * @param <Tile> the Tile object to place next to
-	 * @param <Direction> the Direction for next tile placement
 	 */
-	public class TileDirectionPair<Tile, Direction> {
+	public class TileDirectionPair {
 		public  Tile tile;
 		public  Direction cardinalDirection;
 
@@ -144,7 +142,7 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 		TileDirectionPair retPair = new TileDirectionPair();
 
-		double closestDelta = 0;
+		double closestDelta = 10000;
 
 		Iterator<Map.Entry<Tile, Point>> it = this.gameBoard.entrySet().iterator();
 		while (it.hasNext()) {
@@ -161,9 +159,9 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 				int minDiff = dx < dy ? dx : dy;
 
 				if (minDiff > (TILE_WIDTH_NOMINAL * scale) / 2) {	// The point is closer to either the SOUTH or WEST sides
-					retPair.setCardinalDirection(dx < dy ? Direction.WEST : Direction.SOUTH);
+					retPair.setCardinalDirection(dx > dy ? Direction.WEST : Direction.SOUTH);
 				}	else {
-					retPair.setCardinalDirection(dx < dy ? Direction.EAST : Direction.NORTH);
+					retPair.setCardinalDirection(dx > dy ? Direction.EAST : Direction.NORTH);
 				}
 				retPair.setTile(testEntry.getKey());
 
@@ -230,36 +228,101 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
         return false;
     }
 
+	/**
+	 * Returns the adjusted placement point for the new tile adjacent to the TileDirectionPair's Tile and cardinalDirection
+	 * @param pair the TileDirectionPair that contains the tile and direction to place a new tile next to
+	 * @return the Point where the new tile should be placed
+	 * @throws Exception if something has gone horribly, horribly wrong
+	 */
+	private Point getPlacementPointForTileDirectionPair(TileDirectionPair pair) throws Exception {
+
+		Point tilePoint = this.gameBoard.get(pair.getTile());
+		if (tilePoint == null) throw new Exception("Tile Not Found or Null Exception");
+
+		Point point = tilePoint.getLocation(); // make a deep copy
+
+
+		Direction dir = pair.getCardinalDirection();
+
+		switch (dir) {
+			case NORTH:
+				point.translate(0, -1 * (int)(TILE_WIDTH_NOMINAL * scale));
+				break;
+			case SOUTH:
+				point.translate(0, (int)(TILE_WIDTH_NOMINAL * scale));
+				break;
+			case WEST:
+				point.translate(-1 * (int) (TILE_WIDTH_NOMINAL * scale), 0);
+				break;
+			case EAST:
+				point.translate((int) (TILE_WIDTH_NOMINAL * scale), 0);
+				break;
+			case NO_DIRECTION:
+				break;
+
+			default:    // Something has gone wrong...
+				throw new Exception("Why are you so bad at programming Exception.");
+
+		}
+
+		return point;
+	}
+
 	@Override
 	public void mouseExited(MouseEvent mouseEvent) {
-		System.out.println("A Mouse exited");
+		//System.out.println("A Mouse exited");
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent mouseEvent) {
-		System.out.println("A Mouse released");
+		//System.out.println("A Mouse released");
 	}
 
 	@Override
 	public void mousePressed(MouseEvent mouseEvent) {
-		System.out.println("A Mouse pressed");
+		//System.out.println("A Mouse pressed");
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent) {
         System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
         System.out.println("Unplayed tiles remaining: " + this.game.deck.count());
-        
+
 		Tile placedTile = this.game.deck.pullTile();
 		if (placedTile != null) {
-			this.gameBoard.put(placedTile, new Point(mouseEvent.getX(), mouseEvent.getY()));
+			TileDirectionPair nearestNeighbor = new TileDirectionPair();
+			try {
+				nearestNeighbor = getNearestTilePlacementToPoint(mouseEvent.getPoint());
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+
+			System.out.println(nearestNeighbor.getCardinalDirection() + ", " + nearestNeighbor.getTile());
+
+			if (nearestNeighbor.getTile() == null) return; // Stupid way to check if nearestNeighbor is null, because it won't let me not initialize it
+
+			if (nearestNeighbor.getTile() != null) {
+				Point placementPoint = new Point(-1, -1);
+				try {
+					placementPoint = getPlacementPointForTileDirectionPair(nearestNeighbor);
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+
+				System.out.println(placementPoint);
+
+				if (placementPoint.x == -1 && placementPoint.y == -1) return;
+
+
+				this.gameBoard.put(placedTile, placementPoint);
+			}
 			repaint();
 		}
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent mouseEvent) {
-		System.out.println("A Mouse entered");
+		//System.out.println("A Mouse entered");
 	}
 
     @Override

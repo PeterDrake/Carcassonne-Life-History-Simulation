@@ -244,12 +244,7 @@ public class Tile {
 		return translatedDirection;
 	}
 
-	/**
-	 *
-	 * @param edge
-	 *            cardinal Direction of edge to return
-	 * @return list of features along edge
-	 */
+
 	public HashMap<EdgePosition, TileFeature> getEdge(Direction absoluteEdge) {
 		Direction localEdge = this.translateDirection(absoluteEdge);
 
