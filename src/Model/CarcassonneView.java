@@ -23,6 +23,10 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
     /** The point of the first clickdown, for drag tracking */
     private Point clickPoint;
 
+    private Tile queuedTile;
+    private Point queuedTilePoint = new Point(-1000, -1000);
+
+
 	/**
 	 * a HashMap of Tile and Point objects used for tracking location and mouseEvents
 	 */
@@ -58,6 +62,8 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 //        setLayout(null);
 
+        queuedTile = this.game.deck.pullTile();
+
 	}
 
     /**
@@ -68,6 +74,10 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+
+        if (queuedTile != null){
+            g2.drawImage(queuedTile.getImage(), queuedTilePoint.x, queuedTilePoint.y, (int) (TILE_WIDTH_NOMINAL * scale), (int) (TILE_WIDTH_NOMINAL * scale), null);
+        }
 
 		// draw the game board tiles
 		for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
@@ -336,8 +346,8 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
         //System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
         System.out.println("Unplayed tiles remaining: " + this.game.deck.count());
 
-		Tile placedTile = this.game.deck.pullTile();
-		if (placedTile != null) {
+		//Tile placedTile = this.game.deck.pullTile();
+		if (queuedTile != null) {
 			TileDirectionPair nearestNeighbor = new TileDirectionPair();
 			try {
 				nearestNeighbor = getNearestTilePlacementToPoint(mouseEvent.getPoint());
@@ -363,13 +373,17 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 
                 // Place the tile onto the game grid
-				this.gameBoard.put(placedTile, placementPoint);
+				this.gameBoard.put(queuedTile, placementPoint);
 
                 // Connect the tiles together
-                connectTiles(nearestNeighbor.getTile(), placedTile, nearestNeighbor.getCardinalDirection());
+                connectTiles(nearestNeighbor.getTile(), queuedTile, nearestNeighbor.getCardinalDirection());
+
+                // We've done it, lets queue another
+                queuedTile = this.game.deck.pullTile();
 			}
 			repaint();
 		}
+
 	}
 
 
@@ -401,6 +415,12 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         // handle mouse moves
+        queuedTilePoint = mouseEvent.getPoint();
+
+        int translation = -(int)((TILE_WIDTH_NOMINAL * scale) / 2);
+
+        queuedTilePoint.translate(translation, translation);
+        repaint();
     }
 
     /**
