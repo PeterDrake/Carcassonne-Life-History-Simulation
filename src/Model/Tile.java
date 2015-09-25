@@ -26,7 +26,7 @@ public class Tile {
 	/** Rotation in counts of 90 degrees */
 	private Integer rotation;
 	/** Image, 1024x1024 PNG */
-	private Image image;
+	private Image[] images;
 
 	// //// Neighbors /////////
 
@@ -70,8 +70,6 @@ public class Tile {
 	/** Follower Tracking */
 	private Boolean hasFollower;
 
-
-
 	/**
 	 * Create a new Tile.
 	 *
@@ -99,7 +97,8 @@ public class Tile {
 		this.roads = roads;
 		this.cities = cities;
 		this.farms = farms;
-		this.image = image;
+		this.images = new Image[4];
+		this.images[0] = image;
 		this.cloister = cloister;
 		this.cityShield = cityShield;
 		this.rotation = 0;
@@ -200,7 +199,13 @@ public class Tile {
 	 * @return this Tile's image representation
 	 */
 	public Image getImage() {
-		return this.image;
+		Integer rot = this.getRotation();
+		Image img = this.images[rot];
+		if (img == null) {
+			this.images[rot] = util.ImageTool.rotate(this.images[0], rot * 90);
+			img = this.images[rot];
+		}
+		return img;
 	}
 
 	/**

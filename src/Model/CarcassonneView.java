@@ -327,6 +327,15 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
         }
 
     }
+    
+    /**
+     * Rotates the queued tile (tile currently in play), default CCW
+     */
+    private void rotateQueuedTile() {
+    	if (queuedTile != null) {
+    		queuedTile.rotateClockwise();
+    	}
+    }
 
 
     @Override
@@ -354,51 +363,62 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
 
 	@Override
 	public void mouseClicked(MouseEvent mouseEvent) {
-        //System.out.println("A Mouse clicked at " + mouseEvent.getX() + ", " + mouseEvent.getY());
-        System.out.println("Unplayed tiles remaining: " + this.game.deck.count());
+		switch (mouseEvent.getButton()) {
+		case MouseEvent.BUTTON1:
+			// left click to place tile
+	        System.out.println("Unplayed tiles remaining: " + this.game.deck.count());
 
-        shouldDisplayQueuedTile = false;
+	        shouldDisplayQueuedTile = false;
 
-		//Tile placedTile = this.game.deck.pullTile();
-		if (queuedTile != null) {
-			TileDirectionPair nearestNeighbor = new TileDirectionPair();
-			try {
-				nearestNeighbor = getNearestTilePlacementToPoint(mouseEvent.getPoint());
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-
-			//System.out.println(nearestNeighbor.getCardinalDirection() + ", " + nearestNeighbor.getTile());
-
-			if (nearestNeighbor.getTile() == null) return; // Stupid way to check if nearestNeighbor is null, because it won't let me not initialize it
-
-			if (nearestNeighbor.getTile() != null) {
-				Point placementPoint = new Point(-1, -1);
+			//Tile placedTile = this.game.deck.pullTile();
+			if (queuedTile != null) {
+				TileDirectionPair nearestNeighbor = new TileDirectionPair();
 				try {
-					placementPoint = getPlacementPointForTileDirectionPair(nearestNeighbor);
+					nearestNeighbor = getNearestTilePlacementToPoint(mouseEvent.getPoint());
 				} catch (Exception e) {
 					System.out.println(e);
 				}
 
-				//System.out.println(placementPoint);
+				//System.out.println(nearestNeighbor.getCardinalDirection() + ", " + nearestNeighbor.getTile());
 
-				if (placementPoint.x == -1 && placementPoint.y == -1) return;
+				if (nearestNeighbor.getTile() == null) return; // Stupid way to check if nearestNeighbor is null, because it won't let me not initialize it
+
+				if (nearestNeighbor.getTile() != null) {
+					Point placementPoint = new Point(-1, -1);
+					try {
+						placementPoint = getPlacementPointForTileDirectionPair(nearestNeighbor);
+					} catch (Exception e) {
+						System.out.println(e);
+					}
+
+					//System.out.println(placementPoint);
+
+					if (placementPoint.x == -1 && placementPoint.y == -1) return;
 
 
-                // Place the tile onto the game grid
-				this.gameBoard.put(queuedTile, placementPoint);
+	                // Place the tile onto the game grid
+					this.gameBoard.put(queuedTile, placementPoint);
 
-                // Connect the tiles together
-                connectTiles(nearestNeighbor.getTile(), queuedTile, nearestNeighbor.getCardinalDirection());
+	                // Connect the tiles together
+	                connectTiles(nearestNeighbor.getTile(), queuedTile, nearestNeighbor.getCardinalDirection());
 
-                // We've done it, lets queue another
-                queuedTile = this.game.deck.pullTile();
+	                // We've done it, lets queue another
+	                queuedTile = this.game.deck.pullTile();
+				}
+				repaint();
 			}
+			break;
+		case MouseEvent.BUTTON3:
+			// right click to rotate current tile
+			rotateQueuedTile();
 			repaint();
+			break;
+		default:
+			// ignore other clicks
+			break;
 		}
 
 	}
-
 
 
 	@Override
