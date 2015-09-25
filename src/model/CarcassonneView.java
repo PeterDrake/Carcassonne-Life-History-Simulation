@@ -1,15 +1,10 @@
 package model;
 
-import sun.awt.image.BufImgVolatileSurfaceManager;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import javax.swing.*;
 
@@ -467,49 +462,41 @@ public class CarcassonneView extends JPanel implements MouseListener, MouseMotio
         plusButton.setPreferredSize(new Dimension(30, 30));
 
         plusButton.addActionListener(ae -> {    // Please don't be confused by lambda closures
-                    scale -= 0.05;
-                    // change point of every tile
-                    for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
-                        Point position = tileSet.getValue();
-                        int deltax = (int)(position.x * 0.05);
-                        int deltay = (int)(position.y * 0.05);
-
-                        position.x *= 0.95;
-                        position.y *= 0.95;
-
-                        //position.x += deltax;
-                        //position.y += deltay;
-
-                    }
-                    repaint();
-                }
-        );
+            scale -= 0.05;
+            // change point of every tile
+            for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
+                Point position = tileSet.getValue();
+                position.x *= 0.95;
+                position.y *= 0.95;
+                
+                //int deltax = (int)(position.x * 0.05);
+                //int deltay = (int)(position.y * 0.05);
+                //position.x += deltax;
+                //position.y += deltay;
+            }
+            repaint();
+        });
 
         JButton minusButton = new JButton("+");
         minusButton.setLocation(20, 30);
         minusButton.setPreferredSize(new Dimension(30, 30));
 
         minusButton.addActionListener(ae -> {
-                    scale += 0.05;
+            scale += 0.05;
 
-                    // change point of every tile
-                    for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
-                        Point position = tileSet.getValue();
+            // change point of every tile
+            for (Map.Entry<Tile, Point> tileSet : this.gameBoard.entrySet()) {
+                Point position = tileSet.getValue();
+                position.x *= 1.05;
+                position.y *= 1.05;
 
-                        int deltax = (int) (position.x * 0.05);
-                        int deltay = (int) (position.y * 0.05);
-
-                        position.x *= 1.05;
-                        position.y *= 1.05;
-
-                        //position.x -= deltax;
-                        //position.y -= deltay;
-
-
-                    }
-                    repaint();
-                }
-        );
+                //int deltax = (int) (position.x * 0.05);
+                //int deltay = (int) (position.y * 0.05);
+                //position.x -= deltax;
+                //position.y -= deltay;
+            }
+            repaint();
+        });
 
         add(plusButton);
         add(minusButton);
