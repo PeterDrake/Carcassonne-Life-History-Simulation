@@ -7,7 +7,7 @@
  * Each tile references its cardinal neighbors, as well as followers and players
  */
 
-package Model;
+package model;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

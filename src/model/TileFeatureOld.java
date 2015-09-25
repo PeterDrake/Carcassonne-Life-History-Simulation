@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public interface TileFeatureOld {
 	// TODO: Make this some kind of enum

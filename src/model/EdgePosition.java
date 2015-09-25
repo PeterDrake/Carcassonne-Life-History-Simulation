@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * Position on tile edge.

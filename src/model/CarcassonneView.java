@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import sun.awt.image.BufImgVolatileSurfaceManager;
 

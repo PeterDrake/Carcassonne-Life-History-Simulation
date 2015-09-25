@@ -1,11 +1,10 @@
-package Model;
+package model;
 
 import static org.junit.Assert.*;
+import model.TileTest;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import Model.TileTest;
 
 public class FollowerTest {
 
